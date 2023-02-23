@@ -19,3 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/teknisi', 'TechnicianController@index')->name('teknisi');
+Route::get('/teknisi/search-client', 'TechnicianController@searchClient');
+Route::get('/teknisi/client/{client_id}', 'TechnicianController@client');
+Route::get('/teknisi/client/{client_id}/{service_id}', 'TechnicianController@clientService');
+
+Route::post('/transaksi/save', 'TransactionController@save');
