@@ -33,7 +33,6 @@ class TransactionDetailController extends Controller
         $transaksi_detail->transaksi_id = $transaksi->id;
         $transaksi_detail->detail = json_encode($data);
         $transaksi_detail->tanggal_pengerjaan = now();
-        $transaksi_detail->status_pengerjaan = 1;
         $transaksi_detail->save();
 
         return $transaksi_detail;

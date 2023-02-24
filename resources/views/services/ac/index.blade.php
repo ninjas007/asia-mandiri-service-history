@@ -1,6 +1,9 @@
 <form action="{{ url('transaksi/save') }}" method="POST">
     @csrf
     <br>
+    <label for="">Judul Transaksi</label>
+    <input type="text" name="judul" placeholder="Judul">
+    <br>
     <button type="button" id="tambah-input-{{ $template_service->slug }}"
         onclick="tambahInput(`{{ $template_service->slug }}`)">Tambah
         Inputan</button>

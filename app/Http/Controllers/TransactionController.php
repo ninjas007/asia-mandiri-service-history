@@ -10,6 +10,21 @@ use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
+    public function index()
+    {
+        $data['list_transaksi'] = Transaction::with(['service'])
+                                    ->where('karyawan_id', auth()->user()->id)
+                                    ->limit(10)
+                                    ->get();
+
+        return view('transaksi.index', $data);
+    }
+
+    public function show($id)
+    {
+
+    }
+
     public function save(Request $request)
     {
         // validasi
@@ -34,14 +49,18 @@ class TransactionController extends Controller
             // save transaksi
             $transaksi = new Transaction;
             $transaksi->jenis_service = $request->jenis_service;
+            $transaksi->judul = $request->judul;
             $transaksi->karyawan_id = auth()->user()->id;
-            $transaksi->status_akhir = 1;
             $transaksi->client_id = $request->client_id;
             $transaksi->save();
 
-
             // save transaksi detail
-            $transaction_detail = app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi);
+            $transaksi_detail = app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi);
+
+            // save transaksi history
+            // save transaksi status 1
+            $status_transaksi = 1;
+            $transaksi_history = app(\App\Http\Controllers\TransactionHistoryController::class)->save($request, $transaksi, $status_transaksi);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -50,7 +69,6 @@ class TransactionController extends Controller
             DB::rollBack();
         }
 
-
-        return $transaction_detail;
+        return redirect('transaksi');
     }
 }
