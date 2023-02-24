@@ -50,27 +50,27 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td><input type="text" name="merk_type_ac[]"></td>
-                <td><input type="text" name="pk[]"></td>
-                <td><input type="text" name="freon[]"></td>
-                <td><input type="text" name="ampere[]"></td>
-                <td><input type="radio" name="kompresor[]"></td>
-                <td><input type="radio" name="kompresor[]"></td>
-                <td><input type="radio" name="condensor[]"></td>
-                <td><input type="radio" name="condensor[]"></td>
-                <td><input type="radio" name="motor_fan[]"></td>
-                <td><input type="radio" name="motor_fan[]"></td>
-                <td><input type="radio" name="evoprator[]"></td>
-                <td><input type="radio" name="evoprator[]"></td>
-                <td><input type="radio" name="motor_blower[]"></td>
-                <td><input type="radio" name="motor_blower[]"></td>
-                <td><input type="radio" name="capasitor[]"></td>
-                <td><input type="radio" name="capasitor[]"></td>
-                <td><input type="radio" name="pipa_drainase[]"></td>
-                <td><input type="radio" name="pipa_drainase[]"></td>
-                <td><input type="text" name="kelistrikan[]"></td>
+                <td><input type="text" name="merk_type_ac[baik]"></td>
+                <td><input type="text" name="pk[baik]"></td>
+                <td><input type="text" name="freon[baik]"></td>
+                <td><input type="text" name="ampere[baik]"></td>
+                <td><input type="radio" name="kompresor[baik]"></td>
+                <td><input type="radio" name="kompresor[baik]"></td>
+                <td><input type="radio" name="condensor[baik]"></td>
+                <td><input type="radio" name="condensor[baik]"></td>
+                <td><input type="radio" name="motor_fan[baik]"></td>
+                <td><input type="radio" name="motor_fan[baik]"></td>
+                <td><input type="radio" name="evoprator[baik]"></td>
+                <td><input type="radio" name="evoprator[baik]"></td>
+                <td><input type="radio" name="motor_blower[baik]"></td>
+                <td><input type="radio" name="motor_blower[baik]"></td>
+                <td><input type="radio" name="capasitor[baik]"></td>
+                <td><input type="radio" name="capasitor[baik]"></td>
+                <td><input type="radio" name="pipa_drainase[baik]"></td>
+                <td><input type="radio" name="pipa_drainase[baik]"></td>
+                <td><input type="text" name="kelistrikan[baik]"></td>
                 <td>
-                    <textarea name="keterangan[]"></textarea>
+                    <textarea name="keterangan[baik]"></textarea>
                 </td>
                 <td style="text-align: center">
                     <button class="hapus-row"

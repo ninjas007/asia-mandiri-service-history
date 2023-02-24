@@ -48,29 +48,30 @@
         function tambahInput(slug) {
             if (slug == 'service-ac') {
                 const no = $(`#table-${slug} tbody tr`).length + 1;
+                const index = $(`#table-${slug} tbody tr`).length;
                 const html = `<tr>
                     <td id="no">${no}</td>
-                    <td><input type="text" name="merk_type_ac[]"></td>
-                    <td><input type="text" name="pk[]"></td>
-                    <td><input type="text" name="freon[]"></td>
-                    <td><input type="text" name="ampere[]"></td>
-                    <td><input type="radio" name="kompresor[]"></td>
-                    <td><input type="radio" name="kompresor[]"></td>
-                    <td><input type="radio" name="condensor[]"></td>
-                    <td><input type="radio" name="condensor[]"></td>
-                    <td><input type="radio" name="motor_fan[]"></td>
-                    <td><input type="radio" name="motor_fan[]"></td>
-                    <td><input type="radio" name="evoprator[]"></td>
-                    <td><input type="radio" name="evoprator[]"></td>
-                    <td><input type="radio" name="motor_blower[]"></td>
-                    <td><input type="radio" name="motor_blower[]"></td>
-                    <td><input type="radio" name="capasitor[]"></td>
-                    <td><input type="radio" name="capasitor[]"></td>
-                    <td><input type="radio" name="pipa_drainase[]"></td>
-                    <td><input type="radio" name="pipa_drainase[]"></td>
-                    <td><input type="text" name="kelistrikan[]"></td>
+                    <td><input type="text" name="merk_type_ac[${index}]"></td>
+                    <td><input type="text" name="pk[${index}]"></td>
+                    <td><input type="text" name="freon[${index}]"></td>
+                    <td><input type="text" name="ampere[${index}]"></td>
+                    <td><input type="radio" name="kompresor[${index}]"></td>
+                    <td><input type="radio" name="kompresor[${index}]"></td>
+                    <td><input type="radio" name="condensor[${index}]"></td>
+                    <td><input type="radio" name="condensor[${index}]"></td>
+                    <td><input type="radio" name="motor_fan[${index}]"></td>
+                    <td><input type="radio" name="motor_fan[${index}]"></td>
+                    <td><input type="radio" name="evoprator[${index}]"></td>
+                    <td><input type="radio" name="evoprator[${index}]"></td>
+                    <td><input type="radio" name="motor_blower[${index}]"></td>
+                    <td><input type="radio" name="motor_blower[${index}]"></td>
+                    <td><input type="radio" name="capasitor[${index}]"></td>
+                    <td><input type="radio" name="capasitor[${index}]"></td>
+                    <td><input type="radio" name="pipa_drainase[${index}]"></td>
+                    <td><input type="radio" name="pipa_drainase[${index}]"></td>
+                    <td><input type="text" name="kelistrikan[${index}]"></td>
                     <td>
-                        <textarea name="keterangan[]"></textarea>
+                        <textarea name="keterangan[${index}]"></textarea>
                     </td>
                     <td style="text-align: center">
                         <button type="button" class="hapus-row" onclick="hapusInput('${slug}', this)">Delete</button>
