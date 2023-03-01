@@ -2,33 +2,30 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header" style="margin-bottom: 5px">Halaman Teknisi</div>
-                    <div class="card-body">
-                        <label for="">Client</label>
-                        <br>
+
+        <div class="row justify-content-center center-vertical border-0" style="width: 30%">
+            <div class="col-12 mb-3">
+                <div class="form-group mb-2">
+                    <h5 class="mb-1">Detail Client</h5>
+                    @foreach ($client as $item)
                         <ul>
                             <li>{{ $client->nama }}</li>
                             <li>{{ $client->no_hp }}</li>
                             <li>{{ $client->alamat }}</li>
                         </ul>
-                        <br>
-                        <label for="service">Pilih Service</label>
-                        <br>
-                        <select name="service" id="service">
-                            <option value="">-- Pilih Service --</option>
-                            @foreach ($services as $service)
-                                <option value="{{ $service->id }}">{{ $service->nama_layanan }}</option>
-                            @endforeach
-                        </select>
-                        <br>
-
-                        <div id="wrapService"></div>
-                    </div>
+                    @endforeach
+                </div>
+                <div class="form-group">
+                    <label for="service">Pilih Service</label>
+                    <select name="service" id="service" class="form-control">
+                        <option value="">-- Pilih Service --</option>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->nama_layanan }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
+            <div id="wrapService"></div>
         </div>
     </div>
 @endsection

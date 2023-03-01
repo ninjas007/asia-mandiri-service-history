@@ -12,4 +12,9 @@ class ClientDetail extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function getAttrNamaUserAttribute()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id')->first()->name;
+    }
 }

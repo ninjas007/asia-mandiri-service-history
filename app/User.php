@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ClientDetail::class, 'user_id', 'id');
     }
+
+    public function getUserNameById($user_id)
+    {
+        return $this->where('id', $user_id)->name;
+    }
 }

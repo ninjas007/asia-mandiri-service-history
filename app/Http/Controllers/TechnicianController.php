@@ -44,10 +44,16 @@ class TechnicianController extends Controller
         return response()->json($client);
     }
 
-    public function client(Request $request, $client_id)
+    public function client($client_id)
     {
-        $data['client'] = ClientDetail::findOrFail($client_id)->with('user')->first();
+        $data['client'] = ClientDetail::where('id', $client_id)
+                                ->with('user')
+                                ->get()
+                                ->groupBy('user_id');
+
         $data['services'] = Service::get();
+
+        dd($data);
 
         return view('teknisi.client', $data);
     }

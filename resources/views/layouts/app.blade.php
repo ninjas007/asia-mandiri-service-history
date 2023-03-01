@@ -33,7 +33,7 @@
         * {
             padding: 0;
             margin: 0;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         html,
@@ -51,10 +51,10 @@
 
         .center-vertical {
             position: absolute;
-            top: 50%;
+            top: 45%;
             left: 50.5%;
             border: 0.1px solid #e3e3e3;
-            border-radius: 30px;
+            border-radius: 10px;
             padding: 20px;
             transform: translate(-50%, -50%);
             background-color: #ffffff;
@@ -74,14 +74,7 @@
 
                 @guest
                 @else
-                    <div style="z-index: 99; position: fixed; bottom: 0; left: 33.15%; right: 33.15%; display: flex; justify-content: space-evenly; border-top: .1px solid #3e3e3e"
-                        class=" text-center">
-                        {{-- @include('templates.logout') --}}
-                        <a href="" style="padding: 10px;">Home</a>
-                        <a href="" style="padding: 10px">Transaksi</a>
-                        <a href="" style="padding: 10px">Account</a>
-                        <a href="{{ route('logout') }}" style="padding: 10px">Logout</a>
-                    </div>
+                    @include('templates.menubar-footer')
                 @endguest
             </div>
         </div>
