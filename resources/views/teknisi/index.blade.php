@@ -58,7 +58,7 @@
                             tbody +=
                                 `<tr>
                                     <td style="font-weight: bold; border: .5px solid #bdbdbd; padding: 3px;">
-                                        <a href="{{ url('teknisi/client') }}/${item.client_id}">
+                                        <a href="{{ url('teknisi/client') }}?client_id=${item.client_id}">
                                             ${item.nama_user} </br>
                                             ${item.nama} </br>
                                             ${item.no_hp}

@@ -23,8 +23,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('teknisi')->group(function () {
         Route::get('/', 'TechnicianController@index')->name('teknisi');
         Route::get('/search-client', 'TechnicianController@searchClient');
-        Route::get('/client/{client_id}', 'TechnicianController@client');
-        Route::get('/client/{client_id}/{service_id}', 'TechnicianController@clientService');
+        Route::get('/client', 'TechnicianController@client');
+        Route::get('/client/search-service', 'TechnicianController@clientService');
     });
 
     Route::prefix('transaksi')->group(function () {

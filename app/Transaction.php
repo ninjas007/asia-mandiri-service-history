@@ -13,6 +13,11 @@ class Transaction extends Model
         return $this->hasOne(Service::class, 'id', 'jenis_service');
     }
 
+    public function detail()
+    {
+        return $this->hasMany(TransactionDetail::class, 'transaction_id', 'id');
+    }
+
     public function detailLatest()
     {
         return $this->hasOne(TransactionDetail::class, 'transaction_id', 'id')->latest();

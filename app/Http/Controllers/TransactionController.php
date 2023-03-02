@@ -13,7 +13,7 @@ class TransactionController extends Controller
     public function index()
     {
         $data['list_transaksi'] = Transaction::with(['service'])
-                                    ->where('karyawan_id', auth()->user()->id)
+                                    // ->where('karyawan_id', auth()->user()->id)
                                     ->limit(10)
                                     ->get();
 
@@ -22,7 +22,10 @@ class TransactionController extends Controller
 
     public function show($id)
     {
+        $data['transaksi'] = Transaction::findOrFail($id);
+        $data['transaksi_detail'] = TransactionDetail::with('transaksi')->where('transaksi_id', $id)->get();
 
+        return view('transaksi.detail', $data);
     }
 
     public function save(Request $request)
@@ -46,21 +49,27 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
 
-            // save transaksi
-            $transaksi = new Transaction;
-            $transaksi->jenis_service = $request->jenis_service;
-            $transaksi->judul = $request->judul;
-            $transaksi->karyawan_id = auth()->user()->id;
-            $transaksi->client_id = $request->client_id;
-            $transaksi->save();
+            $transaksi_id = $request->transaksi_id ?? null;
+            // kalau tidak di set transaksi idnya
+            if ($transaksi_id) {
+                $transaksi = Transaction::findOrFail($transaksi_id);
+            } else {
+                // save transaksi
+                $transaksi = new Transaction;
+                $transaksi->jenis_service = $request->jenis_service;
+                $transaksi->judul = $request->judul;
+                $transaksi->karyawan_id = auth()->user()->id;
+                $transaksi->client_id = $request->client_id;
+                $transaksi->save();
+            }
 
             // save transaksi detail
-            $transaksi_detail = app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi);
+            app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi);
 
             // save transaksi history
             // save transaksi status 1
             $status_transaksi = 1;
-            $transaksi_history = app(\App\Http\Controllers\TransactionHistoryController::class)->save($request, $transaksi, $status_transaksi);
+            app(\App\Http\Controllers\TransactionHistoryController::class)->save($request, $transaksi, $status_transaksi);
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -69,6 +78,6 @@ class TransactionController extends Controller
             DB::rollBack();
         }
 
-        return redirect('transaksi');
+        return redirect('transaksi/'.$transaksi->id);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service;
 use App\User;
 use App\ClientDetail;
+use App\Transaction;
 use Illuminate\Http\Request;
 
 class TechnicianController extends Controller
@@ -38,14 +39,21 @@ class TechnicianController extends Controller
                         ->where('users.role_id', 2)
                         ->where('users.name', 'LIKE', '%'.$search.'%')
                         ->orWhere('client_details.nama', 'LIKE', '%'.$search.'%')
-                        ->limit(5)
+                        ->limit(20)
                         ->get();
 
         return response()->json($client);
     }
 
-    public function client($client_id)
+    public function client(Request $request)
     {
+        $client_id = $request->client_id;
+        $transaksi_id = $request->transaksi_id;
+
+        if ($transaksi_id) {
+            $data['transaksi'] = Transaction::findOrFail($transaksi_id);
+        }
+
         $data['client'] = ClientDetail::where('id', $client_id)
                                 ->with('user')
                                 ->first();
@@ -55,9 +63,11 @@ class TechnicianController extends Controller
         return view('teknisi.client', $data);
     }
 
-    public function clientService($client_id, $service_id)
+    public function clientService(Request $request)
     {
         // $data['template_service'] = Service::where('id', $service_id)->with('template')->first();
+        $client_id = $request->client_id;
+        $service_id = $request->service_id;
         $data['template_service'] = Service::where('id', $service_id)->first();
         $data['client'] = ClientDetail::findOrFail($client_id)->with('user')->first();
 
