@@ -19,12 +19,20 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/teknisi', 'TechnicianController@index')->name('teknisi');
-    Route::get('/teknisi/search-client', 'TechnicianController@searchClient');
-    Route::get('/teknisi/client/{client_id}', 'TechnicianController@client');
-    Route::get('/teknisi/client/{client_id}/{service_id}', 'TechnicianController@clientService');
 
-    Route::get('/transaksi', 'TransactionController@index');
-    Route::get('/transaksi/{transaksi_id}', 'TransactionController@show');
-    Route::post('/transaksi/save', 'TransactionController@save');
+    Route::prefix('teknisi')->group(function () {
+        Route::get('/', 'TechnicianController@index')->name('teknisi');
+        Route::get('/search-client', 'TechnicianController@searchClient');
+        Route::get('/client/{client_id}', 'TechnicianController@client');
+        Route::get('/client/{client_id}/{service_id}', 'TechnicianController@clientService');
+    });
+
+    Route::prefix('transaksi')->group(function () {
+        Route::get('/', 'TransactionController@index');
+        Route::get('/{transaksi_id}', 'TransactionController@show');
+        Route::post('/save', 'TransactionController@save');
+    });
+
+
+
 });
