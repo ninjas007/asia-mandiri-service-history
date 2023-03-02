@@ -34,50 +34,133 @@
             padding: 0;
             margin: 0;
             font-size: 12px;
+            letter-spacing: 0.03em;
         }
 
         html,
         body {
             max-width: 100%;
-            overflow-x: hidden;
+            overflow: unset;
+            margin: 0;
+            line-height: inherit;
+            height: 100%;
         }
 
-        .sc-bottom-bar {
+        #wrapper {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn-menubar {
+            display: flex;
+            flex-direction: column;
+            -webkit-box-align: center;
+            align-items: center;
+            --tw-text-opacity: 1;
+            color: rgba(30, 136, 229, var(--tw-text-opacity));
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            width: auto;
+            border-style: none;
+            padding: 0.75rem;
+            background-color: rgba(0, 0, 0, 0);
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .menubar-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            max-width: 100%;
+            --tw-bg-opacity: 1;
+            background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+            width: 480px;
+            margin: 0rem auto;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .navbar-wrap {
+            --tw-bg-opacity: 1;
+            background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+            --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+            display: block;
             position: fixed;
-            bottom: 0;
-            left: 33%;
-            right: 33%;
+            max-width: 100%;
+            width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 10;
+            border-style: solid;
+            border-width: 1px 0px 0px;
+            --tw-border-opacity: 1;
+            border-color: rgba(224, 224, 224, var(--tw-border-opacity));
         }
 
-        .center-vertical {
-            position: absolute;
-            top: 45%;
-            left: 50.5%;
-            border: 0.1px solid #e3e3e3;
-            border-radius: 10px;
-            padding: 20px;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
+        .body-wrap {
+            background: rgb(255, 255, 255);
+            width: 480px;
+            max-width: 100%;
+            margin: 0px auto;
+            min-height: 100%;
+        }
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+        }
+
+        .body-header {
+            background: #333333;
+            padding: 5px;
+            position: relative;
+            width: 480px;
+            max-width: 100%;
+            z-index: 0;
+        }
+
+        .body-header-content {
+            color: #fff;
+            text-align: center;
+            margin: 7px 0px;
+        }
+
+        .body-content {
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0px 16px;
+            padding-top: 15px
         }
     </style>
 </head>
 
 <body>
-    <div id="app"
-        style="background-color: #e3e3e3; background-image: url('https://media.istockphoto.com/id/1248378027/vector/vector-seamless-pattern-with-education-back-to-school-icons-doodle-student-dark-background.jpg?s=612x612&w=0&k=20&c=faIgQ0wy5ssG7W-B6GyeFkNEASh9NSraNhNlpe_gbe8=');">
-        <div class="row justify-content-center" style="height: 100vh">
-            <div class="col-md-4 border bg-white">
-                @yield('content')
-
-
-
-
-                @guest
-                @else
-                    @include('templates.menubar-footer')
-                @endguest
+    <div id="wrapper">
+        <div class="body-wrap">
+            <div class="body">
+                @include('templates.header')
+                <div class="body-content border">
+                    @yield('content')
+                </div>
             </div>
         </div>
+        @guest
+        @else
+            @include('templates.menubar-footer')
+        @endguest
     </div>
 
     <!-- MDB -->

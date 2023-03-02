@@ -48,12 +48,9 @@ class TechnicianController extends Controller
     {
         $data['client'] = ClientDetail::where('id', $client_id)
                                 ->with('user')
-                                ->get()
-                                ->groupBy('user_id');
+                                ->first();
 
         $data['services'] = Service::get();
-
-        dd($data);
 
         return view('teknisi.client', $data);
     }

@@ -1,31 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-
-        <div class="row justify-content-center center-vertical border-0" style="width: 30%">
-            <div class="col-12 mb-3">
-                <div class="form-group mb-2">
-                    <h5 class="mb-1">Detail Client</h5>
-                    @foreach ($client as $item)
-                        <ul>
-                            <li>{{ $client->nama }}</li>
-                            <li>{{ $client->no_hp }}</li>
-                            <li>{{ $client->alamat }}</li>
-                        </ul>
-                    @endforeach
+    <div class="row">
+        <div class="col-12 mb-3">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h5>Detail Client</h5>
                 </div>
-                <div class="form-group">
-                    <label for="service">Pilih Service</label>
-                    <select name="service" id="service" class="form-control">
-                        <option value="">-- Pilih Service --</option>
-                        @foreach ($services as $service)
-                            <option value="{{ $service->id }}">{{ $service->nama_layanan }}</option>
-                        @endforeach
-                    </select>
+                <div class="card-body">
+                    <ul>
+                        <li>{{ $client->nama }}</li>
+                        <li>{{ $client->no_hp }}</li>
+                        <li>{{ $client->alamat }}</li>
+                    </ul>
                 </div>
             </div>
-            <div id="wrapService"></div>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="service">Pilih Service</label>
+                        <select name="service" id="service" class="form-control">
+                            <option value="">-- Pilih Service --</option>
+                            @foreach ($services as $service)
+                                <option value="{{ $service->id }}">{{ $service->nama_layanan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div id="wrapService"></div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
