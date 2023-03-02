@@ -5,8 +5,8 @@
         <div class="row justify-content-center align-items-center mt-2" style="height: 100%; padding-bottom: 80px">
             <div class="col-12">
                 <div class="card">
+                    <h5 class="card-header">Cari Client</h5>
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Cari Client</h4>
                         <div class="form-group mb-3">
                             <label for="searchClient">Masukkan kata kunci</label>
                             <input type="text" id="searchClient" class="form-control"
