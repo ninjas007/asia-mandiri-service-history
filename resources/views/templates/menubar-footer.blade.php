@@ -29,7 +29,7 @@
                     <path d="M9 17H20M9 12H20M9 7H20M4 16.5H5V17.5H4V16.5ZM4 11.5H5V12.5H4V11.5ZM4 6.5V7.5H5V6.5H4Z"
                         stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <span style="color: #000; font-size: 10px">Transaction</span>
+                <span style="color: #000; font-size: 10px">My Transaction</span>
             </button>
         </a>
         <a href="{{ url('akun') }}">
