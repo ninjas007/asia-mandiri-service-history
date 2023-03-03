@@ -12,10 +12,22 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $data['list_transaksi'] = Transaction::with(['service'])
-                                    // ->where('karyawan_id', auth()->user()->id)
-                                    ->limit(10)
-                                    ->get();
+        $transaksi = Transaction::with(['service']);
+
+        if (auth()->user()->role_id == 2) {
+            $transaksi->whereHas('clientDetail', function($q) {
+                $q->select('id')
+                    ->from('client_details')
+                    ->where('client_details.user_id', auth()->user()->id);
+            });
+        } else {
+            // ->where('karyawan_id', auth()->user()->id)
+            $transaksi->limit(10);
+        }
+
+        $transaksi = $transaksi->get();
+
+        $data['list_transaksi'] = $transaksi;
 
         return view('transaksi.index', $data);
     }

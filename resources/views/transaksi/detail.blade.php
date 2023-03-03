@@ -19,10 +19,13 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="card-footer">
-                        <div class="mb-1">Tambah item baru untuk transaksi ini</div> <br>
-                        <a href="{{ url('teknisi/client?client_id='.$transaksi->client_id.'&transaksi_id='.$transaksi->id.'') }}" class="btn btn-primary">tambah item</a>
-                    </div>
+                    @if (auth()->user()->role_id == 1)
+                        <div class="card-footer">
+                            <div class="mb-1">Tambah item baru untuk transaksi ini</div> <br>
+                            <a href="{{ url('teknisi/client?client_id=' . $transaksi->client_id . '&transaksi_id=' . $transaksi->id . '') }}"
+                                class="btn btn-primary">tambah item</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
