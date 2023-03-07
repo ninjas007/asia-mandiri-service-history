@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserTeknisi
+class CheckUserAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckUserTeknisi
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user() && Auth::user()->role_id == 1)
+        if(Auth::user() && Auth::user()->role_id == 0) 
         {
             return $next($request);
         }

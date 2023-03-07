@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('user-teknisi');
+        $this->middleware('user-admin');
     }
 
     /**

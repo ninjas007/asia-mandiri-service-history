@@ -14,7 +14,9 @@
                                 onkeypress="searchInput(this, event)">
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ url('register') }}" class="btn btn-success">Client Baru</a>
+                            @if (auth()->user()->role_id == 0)
+                                <a href="{{ url('register') }}" class="btn btn-success">Client Baru</a>
+                            @endif
                             <button type="button" onclick="search()" class="btn btn-primary">Cari</button>
                         </div>
                     </div>
