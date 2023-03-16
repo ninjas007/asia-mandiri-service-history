@@ -144,6 +144,12 @@
             padding: 0px 16px;
             padding-top: 15px
         }
+
+        body {
+            background-image: url('../background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     </style>
 </head>
 
@@ -152,7 +158,7 @@
         <div class="body-wrap">
             <div class="body">
                 @include('templates.header')
-                <div class="body-content border">
+                <div class="body-content">
                     @yield('content')
                 </div>
             </div>
