@@ -12,7 +12,7 @@ class TransactionHistoryController extends Controller
      * @property App\Transaksi $transksi
      * @property int $status_id
      */
-    public function save(Request $request, $transaksi, $status_id = 1)
+    public function save($transaksi, $status_id = 1)
     {
         $transaksi_history = new TransactionHistory;
         $transaksi_history->transaksi_status_id = $status_id;

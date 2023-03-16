@@ -1,4 +1,4 @@
-<form action="{{ url('transaksi/save') }}" method="POST" style="padding-bottom: 10rem">
+<form action="{{ url('transaksi/save') }}" method="POST" style="padding-bottom: 5rem" enctype="multipart/form-data">
     @csrf
     <input type="hidden" value="{{ $template_service->slug }}" id="slug">
     <input type="hidden" value="{{ $template_service->id }}" name="jenis_service">
@@ -21,7 +21,7 @@
     <button type="button" id="tambah-input-{{ $template_service->slug }}" onclick="tambahInput(`{{ $template_service->slug }}`)" class="btn btn-primary">
         Tambah Inputan
     </button> --}}
-    <div class="row mb-3">
+    <div class="row mb-3 mt-3">
         <div class="col-12">
             <button type="submit" class="btn btn-success form-control">Simpan</button>
         </div>

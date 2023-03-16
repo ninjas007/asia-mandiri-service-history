@@ -32,6 +32,14 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-12">
+        <div class="form-group">
+            <label for="kelistrikan">Kelistrikan</label>
+            <input type="text" name="kelistrikan" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
         <table style="width: 100%">
             <tr>
                 <td width="25%">Kompresor</td>
@@ -149,12 +157,67 @@
 <div class="row mb-3">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="kelistrikan">Kelistrikan</label>
-            <input type="text" name="kelistrikan" class="form-control">
+            <h5>Upload Foto</h5>
         </div>
     </div>
 </div>
 <div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_kompresor">Foto Kompresor</label>
+            <input type="file" name="foto_kompresor" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_condensor">Foto Condensor</label>
+            <input type="file" name="foto_condensor" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_motorfan">Foto Motor Fan</label>
+            <input type="file" name="foto_motorfan" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_evoprator">Foto Evoprator</label>
+            <input type="file" name="foto_evoprator" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_motorblower">Foto Motor Blower</label>
+            <input type="file" name="foto_motorblower" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_capasitor">Foto Capasitor</label>
+            <input type="file" name="foto_capasitor" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="foto_pipadrainese">Foto Pipa Drainese</label>
+            <input type="file" name="foto_pipadrainese" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row mb-1">
     <div class="col-md-12">
         <div class="form-group">
             <label for="keterangan">Keterangan</label>

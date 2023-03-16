@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TransactionDetailController extends Controller
 {
-    public function save(Request $request, $transaksi)
+    public function save(Request $request, $transaksi, $data_foto = [])
     {
         $data = [
             'merk_type_ac' => $request->merk_type_ac,
@@ -22,7 +22,8 @@ class TransactionDetailController extends Controller
             'capasitor' => $request->capasitor ?? null,
             'pipa_drainase' => $request->pipa_drainase ?? null,
             'kelistrikan' => $request->kelistrikan,
-            'keterangan' => $request->keterangan
+            'keterangan' => $request->keterangan,
+            'foto' => $data_foto
         ];
 
         $transaksi_detail = new TransactionDetail;

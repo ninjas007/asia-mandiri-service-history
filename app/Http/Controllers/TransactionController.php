@@ -58,10 +58,30 @@ class TransactionController extends Controller
             dd($validator);
         }
 
+        // validasi gambar
+        // Validasi isian form
+        // $request->validate([
+        //     'foto_capasitor' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
+
         try {
             DB::beginTransaction();
 
             $transaksi_id = $request->transaksi_id ?? null;
+
+            $foto = [
+                'foto_kompresor' => app(HelperController::class)->uploadGambar($request->file('foto_kompresor')),
+                'foto_condensor' => app(HelperController::class)->uploadGambar($request->file('foto_condensor')),
+                'foto_motorfan' => app(HelperController::class)->uploadGambar($request->file('foto_motorfan')),
+                'foto_evoprator' => app(HelperController::class)->uploadGambar($request->file('foto_evoprator')),
+                'foto_motorblower' => app(HelperController::class)->uploadGambar($request->file('foto_motorblower')),
+                'foto_capasitor' => app(HelperController::class)->uploadGambar($request->file('foto_capasitor')),
+                'foto_pipadrainese' => app(HelperController::class)->uploadGambar($request->file('foto_pipadrainese')),
+            ];
+
             // kalau tidak di set transaksi idnya
             if ($transaksi_id) {
                 $transaksi = Transaction::findOrFail($transaksi_id);
@@ -76,12 +96,12 @@ class TransactionController extends Controller
             }
 
             // save transaksi detail
-            app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi);
+            app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi, $foto);
 
             // save transaksi history
             // save transaksi status 1
             $status_transaksi = 1;
-            app(\App\Http\Controllers\TransactionHistoryController::class)->save($request, $transaksi, $status_transaksi);
+            app(\App\Http\Controllers\TransactionHistoryController::class)->save($transaksi, $status_transaksi);
 
             DB::commit();
         } catch (\Throwable $th) {
