@@ -146,7 +146,7 @@
         }
 
         body {
-            background-image: url('../background.jpg');
+            background-image: url('{{ url('') }}/background.jpg');
             background-repeat: no-repeat;
             background-size: cover;
         }
