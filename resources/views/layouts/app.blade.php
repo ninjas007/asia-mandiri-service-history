@@ -146,7 +146,7 @@
         }
 
         body {
-            background-image: url('{{ url('') }}/background.jpg');
+            background-image: url('https://www.linkpicture.com/q/background_37.jpg');
             background-repeat: no-repeat;
             background-size: cover;
         }
