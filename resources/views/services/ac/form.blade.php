@@ -221,7 +221,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="keterangan">Keterangan</label>
-            <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+            <textarea name="keterangan" id="" cols="30" rows="5" class="form-control"></textarea>
         </div>
     </div>
 </div>
