@@ -55,18 +55,20 @@
 @section('js')
     <script type="text/javascript">
         @if (Session::has('success'))
-            $.notify(`{{ Session::get('success') }}`, {
-                position: 'right top',
-                style: 'bootstrap',
-                className: `{{ 'success' }}`
+            swal({
+                title: "Berhasil!",
+                text: "{{ Session::get('success') }}",
+                icon: "success",
+                button: "Ok",
             });
         @endif
 
         @if (Session::has('error'))
-            $.notify(`{{ Session::get('error') }}`, {
-                position: 'right top',
-                style: 'bootstrap',
-                className: `{{ 'error' }}`
+            swal({
+                title: "Gagal!",
+                text: "{{ Session::get('error') }}",
+                icon: "warning",
+                button: "Ok",
             });
         @endif
 
