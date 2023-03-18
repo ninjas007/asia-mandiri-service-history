@@ -37,4 +37,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', 'UserController@index');
         Route::post('/save', 'UserController@save');
     });
+
+    // Clear application cache:
+    Route::get('/clear-cache', function() {
+        Artisan::call('cache:clear');
+        Artisan::call('route:cache');
+        Artisan::call('config:cache');
+        Artisan::call('view:clear');
+        return 'Application cache has been cleared';
+    });
 });
