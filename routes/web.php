@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/save', 'TransactionController@save');
     });
 
-
-
+    Route::prefix('akun')->group(function () {
+        Route::get('/', 'UserController@index');
+        Route::post('/save', 'UserController@save');
+    });
 });
