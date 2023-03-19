@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $data['user'] = User::findOrFail(auth()->user()->id);
 
-        return view('users.index', $data);
+        return view('akun.index', $data);
     }
 
     public function save(Request $request)

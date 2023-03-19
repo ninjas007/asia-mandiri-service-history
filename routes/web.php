@@ -12,7 +12,6 @@
 */
 
 
-
 Auth::routes();
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('logout', 'Auth\LoginController@logout');
@@ -40,10 +39,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Clear application cache:
     Route::get('/clear-cache', function() {
-        Artisan::call('cache:clear');
-        Artisan::call('route:cache');
         Artisan::call('config:cache');
         Artisan::call('view:clear');
         return 'Application cache has been cleared';
+    });
+
+    Route::get('/migrate-seeder', function() {
+        Artisan::call('migrate:fresh');
+        Artisan::call('db:seed');
+        return 'Application migrate and seeder cleared';
     });
 });
