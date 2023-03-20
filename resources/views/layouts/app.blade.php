@@ -160,7 +160,7 @@
         <div class="body-wrap">
             <div class="body">
                 @include('templates.header')
-                <div class="body-content">
+                <div class="body-content" style="padding-top: 50%">
                     @yield('content')
                 </div>
             </div>
