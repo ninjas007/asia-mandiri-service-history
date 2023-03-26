@@ -15,7 +15,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
     {{-- Start MDBootstrap --}}
     <!-- Font Awesome -->
@@ -35,6 +35,7 @@
             margin: 0;
             font-size: 12px;
             letter-spacing: 0.03em;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         html,
@@ -141,14 +142,19 @@
             -webkit-box-pack: center;
             justify-content: center;
             flex-direction: column;
-            padding: 0px 16px;
+            /* padding: 0px 16px; */
             padding-top: 15px
         }
 
         body {
-            background-image: url('https://www.linkpicture.com/q/background_37.jpg');
+            /* background-image: url('https://www.linkpicture.com/q/background_37.jpg'); */
             /* background-repeat: no-repeat; */
             background-size: cover;
+        }
+
+        .container {
+            padding-left: 0px;
+            padding-right: 0px;
         }
     </style>
 
@@ -180,6 +186,36 @@
     
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('js')
+    <script type="text/javascript">
+        @if (Session::has('success'))
+            swal({
+                title: "Berhasil!",
+                text: "{{ Session::get('success') }}",
+                icon: "success",
+                button: "Ok",
+            });
+        @endif
+
+        @if (Session::has('error'))
+            swal({
+                title: "Gagal!",
+                text: "{{ Session::get('error') }}",
+                icon: "warning",
+                button: "Ok",
+            });
+        @endif
+
+        $('.show_pass').click(function() {
+            const name = $(this).data('name'); // name element should be data-name
+            const type = $(`input[name="${name}"]`).attr('type');
+
+            if (type == 'text') {
+                $(`input[name="${name}"]`).attr('type', 'password') // class name should be data-name
+            } else {
+                $(`input[name="${name}"]`).attr('type', 'text')
+            }
+        });
+    </script>
 </body>
 
 </html>

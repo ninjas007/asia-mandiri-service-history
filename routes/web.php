@@ -34,7 +34,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::prefix('akun')->group(function () {
         Route::get('/', 'UserController@index');
+        Route::get('/add', 'UserController@add');
+        Route::post('/update', 'UserController@update');
         Route::post('/save', 'UserController@save');
+    });
+
+    Route::prefix('client')->group(function () {
+        Route::get('/', 'ClientController@index');
     });
 
     // Clear application cache:

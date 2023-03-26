@@ -165,7 +165,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="foto_kompresor">Foto Kompresor</label>
-            <input type="file" name="foto_kompresor" class="form-control">
+            <input type="file" name="foto_kompresor" class="form-control" multiple>
         </div>
     </div>
 </div>

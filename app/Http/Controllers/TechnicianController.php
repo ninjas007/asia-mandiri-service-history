@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service;
 use App\User;
 use App\ClientDetail;
+use App\TeknisiDetail;
 use App\Transaction;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,15 @@ class TechnicianController extends Controller
         return view('teknisi.index', [
             'clients' => $clients
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $teknisi_detail = TeknisiDetail::where('user_id', $request->user_id)->first();
+        $teknisi_detail->alamat = $request->alamat;
+        $teknisi_detail->no_hp = $request->no_hp;
+        
+        $teknisi_detail->save();
     }
 
     /**

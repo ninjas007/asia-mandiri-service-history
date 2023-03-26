@@ -20,8 +20,8 @@
                             <button type="button" onclick="search()" class="btn btn-primary">Cari</button>
                         </div>
                     </div>
+                    <div id="wrapClient"></div>
                 </div>
-                <div id="wrapClient"></div>
             </div>
         </div>
     </div>
@@ -59,25 +59,25 @@
                         $.each(response, function(index, item) {
                             tbody +=
                                 `<tr>
-                                    <td style="font-weight: bold; border: .5px solid #bdbdbd; padding: 3px;">
+                                    <td style="font-weight: bold; border-bottom: .5px solid #bdbdbd; padding: 3px;">
                                         <a href="{{ url('teknisi/client') }}?client_id=${item.client_id}">
                                             ${item.nama_user} </br>
                                             ${item.nama} </br>
                                             ${item.no_hp}
                                         </a>
                                     </td>
-                                    <td style="border: .5px solid #bdbdbd; padding: 3px; vertical-align: top">${item.alamat}</td>
+                                    <td style="border-bottom: .5px solid #bdbdbd; padding: 3px; vertical-align: top">${item.alamat}</td>
                                 </tr>`
                         })
 
-                        wrapClient = `<div class="card mt-3">
+                        wrapClient = `<div class="card my-3 px-3">
                             <div class="row">
                                 <div class="col-md-12">
-                                <table border="1" style="width: 100%">
+                                <table style="width: 100%">
                                     <thead>
                                     <tr>
-                                        <th scope="col" style="border: .5px solid #bdbdbd; padding: 3px;">Client</th>
-                                        <th scope="col" style="border: .5px solid #bdbdbd; padding: 3px;">Alamat</th>
+                                        <th scope="col" style="border-bottom: .5px solid #bdbdbd; padding: 3px;">Client</th>
+                                        <th scope="col" style="border-bottom: .5px solid #bdbdbd; padding: 3px;">Alamat</th>
                                     </tr>
                                     </thead>
                                     <tbody id="wrapClient">

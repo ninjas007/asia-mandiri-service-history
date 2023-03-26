@@ -24,4 +24,13 @@ class HelperController extends Controller
 
         return $file;
     }
+
+    public static function handleError($exception, $message = ['error' => 'Terjadi Kesalahan Server'])
+    {
+        if (config('app.debug') == true) {
+            dd($exception);
+        }
+        
+        return $message;
+    }
 }
