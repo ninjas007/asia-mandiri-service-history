@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->integer('role_id')->nullable()->index();
             $table->tinyInteger('is_active')->default(1);
+            $table->string('nama_user')->nullable(); // kalau role client ini bisa jadi nama toko
+            $table->text('alamat_user')->nullable();
+            $table->string('nohp_user', 20)->nullable();
         });
     }
 

@@ -19,7 +19,7 @@
                         @foreach ($clients as $i => $client)
                             <div class="my-1 border p-2" data-mdb-toggle="collapse" href="#collapseExample{{ $i }}" role="button"
                                 aria-expanded="false" aria-controls="collapseExample{{ $i }}">
-                                <b>{{ $client->name }} - {{ $client->client->nama }}</b>
+                                <b>{{ $client->name }} - {{ $client->nama_user }}</b>
                             </div>
 
                             <div class="collapse my-2" id="collapseExample{{ $i }}">
@@ -39,14 +39,14 @@
                                             style="text-transform: capitalize; padding-left: 5px; vertical-align: top">
                                             No HP</td>
                                         <td width="2%" style=" vertical-align: top">:</td>
-                                        <td width="83%">{{ $client->client->no_hp }}</td>
+                                        <td width="83%">{{ $client->nohp_user }}</td>
                                     </tr>
                                     <tr>
                                         <td width="15%"
                                             style="text-transform: capitalize; padding-left: 5px; vertical-align: top">
                                             Alamat</td>
                                         <td width="2%" style=" vertical-align: top">:</td>
-                                        <td width="83%">{{ $client->client->alamat }}</td>
+                                        <td width="83%">{{ $client->alamat_user }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -56,7 +56,7 @@
                         <div class="mt-3">Total Client : {{ $total_client }}</div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ url('akun/add') }}" class="btn btn-primary mt-2">Tambah Client</a>
+                        <a href="{{ url('akun/add?add_client=1') }}" class="btn btn-primary mt-2">Tambah Client</a>
                     </div>
                 </div>
             </div>

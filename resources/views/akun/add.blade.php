@@ -17,7 +17,7 @@
 
                                     <select name="role" id="role" class="form-control">
                                         <option value="1">Teknisi</option>
-                                        <option value="2">Client</option>
+                                        <option value="2" @if ($add_client) selected @endif>Client</option>
                                     </select>
     
                                     @error('role')
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-2 show_client" style="display: none">
+                            <div class="form-group row mb-2 show_client" @if(!$add_client)  style="display: none" @endif>
                                 <label for="nama_client" class="col-md-5 col-form-label text-md-right">Nama Client / Toko</label>
     
                                 <div class="col-md-7">

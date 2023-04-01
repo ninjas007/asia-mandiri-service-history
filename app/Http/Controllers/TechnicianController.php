@@ -18,7 +18,7 @@ class TechnicianController extends Controller
      */
     public function index()
     {
-        $clients = User::where('role_id', 2)->with('client')->get();
+        $clients = User::where('role_id', 2)->where('is_active', 1)->get();
 
         return view('teknisi.index', [
             'clients' => $clients
@@ -27,7 +27,7 @@ class TechnicianController extends Controller
 
     public function update(Request $request)
     {
-        $teknisi_detail = TeknisiDetail::where('user_id', $request->user_id)->first();
+        $teknisi_detail = User::where('id', $request->user_id)->first();
         $teknisi_detail->alamat = $request->alamat;
         $teknisi_detail->no_hp = $request->no_hp;
         
@@ -44,11 +44,10 @@ class TechnicianController extends Controller
     {
         $search = $request->search;
 
-        $client = User::selectRaw('client_details.*, client_details.id as client_id, users.name as nama_user')
-                        ->join('client_details', 'users.id', '=', 'client_details.user_id')
-                        ->where('users.role_id', 2)
-                        ->where('users.name', 'LIKE', '%'.$search.'%')
-                        ->orWhere('client_details.nama', 'LIKE', '%'.$search.'%')
+        $client = User::where('role_id', 2)
+                        ->where('is_active', 1)
+                        ->where('name', 'LIKE', '%'.$search.'%')
+                        ->orWhere('nama_user', 'LIKE', '%'.$search.'%')
                         ->limit(20)
                         ->get();
 
@@ -64,10 +63,7 @@ class TechnicianController extends Controller
             $data['transaksi'] = Transaction::findOrFail($transaksi_id);
         }
 
-        $data['client'] = ClientDetail::where('id', $client_id)
-                                ->with('user')
-                                ->first();
-
+        $data['client'] = User::where('id', $client_id)->first();
         $data['services'] = Service::get();
 
         return view('teknisi.client', $data);
@@ -79,7 +75,7 @@ class TechnicianController extends Controller
         $client_id = $request->client_id;
         $service_id = $request->service_id;
         $data['template_service'] = Service::where('id', $service_id)->first();
-        $data['client'] = ClientDetail::findOrFail($client_id)->with('user')->first();
+        $data['client'] = User::findOrFail($client_id);
 
         $html = 'Not found';
         if ($data['template_service']) {

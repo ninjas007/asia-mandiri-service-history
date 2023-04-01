@@ -18,7 +18,7 @@ class UserController extends Controller
         $data['user'] = auth()->user();
 
         if (isset($request->user_id)) {
-            $data['user'] = User::with(['client', 'teknisi'])->where('id', $request->user_id)->first();
+            $data['user'] = User::where('id', $request->user_id)->first();
         } else {
             $data['total_client'] = User::where('role_id', '=', 2)->count();
             $data['total_teknisi'] = User::where('role_id', '=', 1)->count();
@@ -27,9 +27,10 @@ class UserController extends Controller
         return view('akun.index', $data);
     }
 
-    public function add()
+    public function add(Request $request)
     {
-        return view('akun.add');
+        $data['add_client'] = $request->add_client ?? null;
+        return view('akun.add', $data);
     }
 
     public function update(Request $request)
@@ -51,64 +52,61 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
 
-        $user->save();
-
-        if ($update_by_admin) {
-            if ($user->role_id == 2) {
-                app(ClientController::class)->update($request);
-            }
-
-            if ($user->role_id == 1) {
-                app(TeknisiController::class)->update($request);
-            }
+        if ($user->role_id == 2 && $update_by_admin) {
+            $user->alamat_user = $request->alamat;
+            $user->nohp_user = $request->no_hp;
+            $user->nama_user = $request->nama_client;
         }
+
+        if ($user->role_id == 1 && $update_by_admin) {
+            $user->alamat_user = $request->alamat;
+            $user->nohp_user = $request->no_hp;
+        }
+
+        $user->save();
 
         return redirect('akun')->with(['success' => 'Berhasil mengubah data']);
     }
 
     public function save(Request $request)
     {
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
+        if ($validator->fails()) {
+            return redirect('akun')->with(['error' => 'Gagal menambah data validasi ada yang salah']);
+            // return view('my-form')->withErrors($validator);
+        }
+
         try {
             DB::beginTransaction();
 
-            $user = User::create([
+            $data = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request['password']),
                 'is_active' => 1,
                 'role_id' => $request->role
-            ]);
+            ];
 
-            if ($request->role == 2) {
-                $client = new ClientDetail();
-                $client->nama = $request->nama_client;
-                $client->alamat = $request->alamat;
-                $client->no_hp = $request->no_hp;
-                $client->user_id = $user->id;
+            if ($request->role == 2 && $request->role == 1) {
+                $data['alamat_user'] = $request->alamat;
+                $data['nohp_user'] = $request->no_hp;
 
-                $client->save();
-                $success = 'Berhasil menambah client';
+                if ($request->role == 2) {
+                    $data['nama_user'] = $request->nama_client;
+                }
             }
-            else if ($request->role == 1) {
-                $teknisi = new TeknisiDetail();
-                $teknisi->user_id = $user->id;
-                $teknisi->alamat = $teknisi->alamat;
-                $teknisi->no_hp = $teknisi->no_hp;
 
-                $teknisi->save();
-                $success = 'Berhasil menambah teknisi';
-            }
+            User::create($data);
 
             DB::commit();
 
             $return = [
-                'success' => $success
+                'success' => 'Berhsasil menambah data'
             ];
         } catch (\Throwable $th) {
             //throw $th;

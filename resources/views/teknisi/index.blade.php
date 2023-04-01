@@ -60,13 +60,13 @@
                             tbody +=
                                 `<tr>
                                     <td style="font-weight: bold; border-bottom: .5px solid #bdbdbd; padding: 3px;">
-                                        <a href="{{ url('teknisi/client') }}?client_id=${item.client_id}">
+                                        <a href="{{ url('teknisi/client') }}?client_id=${item.id}">
+                                            ${item.name} </br>
                                             ${item.nama_user} </br>
-                                            ${item.nama} </br>
-                                            ${item.no_hp}
+                                            ${item.nohp_user}
                                         </a>
                                     </td>
-                                    <td style="border-bottom: .5px solid #bdbdbd; padding: 3px; vertical-align: top">${item.alamat}</td>
+                                    <td style="border-bottom: .5px solid #bdbdbd; padding: 3px; vertical-align: top">${item.alamat_user}</td>
                                 </tr>`
                         })
 
