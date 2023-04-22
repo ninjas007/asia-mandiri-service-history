@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Transaksi Saya</h5>
+                        <h5 class="card-title">Transaksi {{ auth()->user()->role_id == 0 ? '' : 'Saya' }}</h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         @foreach ($list_transaksi as $transaksi)

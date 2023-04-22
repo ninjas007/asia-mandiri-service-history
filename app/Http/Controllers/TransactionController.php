@@ -14,18 +14,14 @@ class TransactionController extends Controller
     {
         $transaksi = Transaction::with(['service']);
 
+        // client
         if (auth()->user()->role_id == 2) {
-            $transaksi->whereHas('clientDetail', function($q) {
-                $q->select('id')
-                    ->from('client_details')
-                    ->where('client_details.user_id', auth()->user()->id);
-            });
-        } else {
-            // ->where('karyawan_id', auth()->user()->id)
-            $transaksi->limit(10);
+            $transaksi->where('client_id', auth()->user()->id);
+        } else if (auth()->user()->role_id == 1){
+            $transaksi->where('karyawan_id', auth()->user()->id); // karyawan
         }
-
-        $transaksi = $transaksi->get();
+        
+        $transaksi = $transaksi->limit(10)->get();
 
         $data['list_transaksi'] = $transaksi;
 

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use App\User;
-use App\ClientDetail;
-use App\TeknisiDetail;
 use App\Transaction;
 use Illuminate\Http\Request;
 

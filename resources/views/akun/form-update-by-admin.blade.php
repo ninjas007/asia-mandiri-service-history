@@ -34,7 +34,7 @@
         <label for="nama_client" class="col-md-5 col-form-label text-md-right">Nama Client / Toko</label>
 
         <div class="col-md-7">
-            <input id="nama_client" type="text" class="form-control @error('nama_client') is-invalid @enderror" name="nama_client" value="{{ $user->client->nama }}" autocomplete="nama_client">
+            <input id="nama_client" type="text" class="form-control @error('nama_client') is-invalid @enderror" name="nama_client" value="{{ $user->nama }}" autocomplete="nama_client">
 
             @error('nama_client')
                 <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
     <label for="no_hp" class="col-md-5 col-form-label text-md-right">No HP</label>
 
     <div class="col-md-7">
-        <input id="no_hp" type="text" class="form-control" name="no_hp" value="{{ $user->role_id ? $user->client->no_hp : $user->teknisi->no_hp }}">
+        <input id="no_hp" type="text" class="form-control" name="no_hp" value="{{ $user->nohp_user }}">
     </div>
 </div>
 
@@ -57,7 +57,7 @@
     <label for="alamat" class="col-md-5 col-form-label text-md-right">Alamat</label>
 
     <div class="col-md-7">
-        <input id="alamat" type="text" class="form-control" name="alamat" value="{{ $user->role_id == 2 ? $user->client->alamat : $user->teknisi->alamat }}" >
+        <input id="alamat" type="text" class="form-control" name="alamat" value="{{ $user->alamat_user }}" >
     </div>
 </div>
 {{-- <div class="form-group mb-3">

@@ -1,5 +1,6 @@
 <div class="body-header">
     <div class="body-header-content">
-        App CV Asia Mandiri
+        @endphp
+        App CV Asia Mandiri - Login Sebagai {{ auth()->user()->role_id == 0 ? 'Adin' }}
     </div>
 </div>

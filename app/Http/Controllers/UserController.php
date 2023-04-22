@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-use App\ClientDetail;
-use App\TeknisiDetail;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
