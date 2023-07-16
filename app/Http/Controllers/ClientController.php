@@ -8,7 +8,11 @@ use App\User;
 class ClientController extends Controller
 {
     public function index()
-    {
+    {   
+        if (auth()->user()->role_id != 0) {
+            return \abort(404);
+        }
+
         $user = User::where('role_id', 2)->where('is_active', 1);
         $limit = 10;
         $data['user'] = auth()->user();

@@ -21,9 +21,14 @@
                     </div>
                     @if (auth()->user()->role_id == 1)
                         <div class="card-footer">
-                            <div class="mb-1">Tambah item baru untuk transaksi ini</div> <br>
-                            <a href="{{ url('teknisi/client?client_id=' . $transaksi->client_id . '&transaksi_id=' . $transaksi->id . '') }}"
-                                class="btn btn-primary">tambah item</a>
+                            <div class="list-group list-group-light">
+                                <a href="{{ url('teknisi/client?client_id=' . $transaksi->client_id . '&transaksi_id=' . $transaksi->id . '') }}" class="text-primary list-group-item list-group-item-action px-3 border-0 ripple" aria-current="true">
+                                   <i class="fa fa-plus"></i> Tambah item baru untuk transaksi ini
+                                </a>
+                                <a href="{{ url('teknisi/client?client_id=' . $transaksi->client_id) }}" class="text-primary list-group-item list-group-item-action px-3 border-0 ripple" aria-current="true">
+                                   <i class="fa fa-plus"></i> Tambah transaksi baru untuk client ini
+                                </a>
+                            </div>
                         </div>
                     @endif
                 </div>

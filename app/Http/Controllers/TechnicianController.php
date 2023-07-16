@@ -67,20 +67,33 @@ class TechnicianController extends Controller
         return view('teknisi.client', $data);
     }
 
-    public function clientService(Request $request)
+    public function service(Request $request)
     {
-        // $data['template_service'] = Service::where('id', $service_id)->with('template')->first();
-        $client_id = $request->client_id;
         $service_id = $request->service_id;
-        $data['template_service'] = Service::where('id', $service_id)->first();
-        $data['client'] = User::findOrFail($client_id);
+        $client_id = $request->client_id;
+        $transaksi_id = $request->transaksi_id ?? null;
 
-        $html = 'Not found';
-        if ($data['template_service']) {
-            $html = view('teknisi.service', $data)->render();
+        $data['client'] = User::findOrFail($client_id);
+        $data['template_service'] = Service::where('id', $service_id)->first();
+        if ($transaksi_id) {
+            $data['transaksi'] = Transaction::where('id', $transaksi_id)->first();
         }
 
-        return $html;
+
+        return view(
+            $this->viewService($data['template_service']->slug), 
+            $data
+        );
+    }
+
+    private function viewService($key)
+    {
+        $data = [
+            'service-ac' => 'services.ac.index',
+            'service-komputer' => 'services.komputer.index'
+        ];
+
+        return $data[$key];
     }
 
 }

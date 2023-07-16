@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TransactionImages;
 use App\Transaction;
 use App\TransactionDetail;
 use Illuminate\Http\Request;
@@ -40,45 +41,27 @@ class TransactionController extends Controller
     {
         // validasi
         $validator = Validator::make($request->all(), [
-            // 'kompresor' => 'required',
-            // 'condensor' => 'required',
-            // 'motor_fan' => 'required',
-            // 'evoprator' => 'required',
-            // 'motor_blower' => 'required',
-            // 'capasitor' => 'required',
-            // 'pipa_drainase' => 'required',
+            'kompresor' => 'required',
+            'condensor' => 'required',
+            'motor_fan' => 'required',
+            'evoprator' => 'required',
+            'motor_blower' => 'required',
+            'capasitor' => 'required',
+            'pipa_drainase' => 'required',
         ]);
 
         // cek validasi
         if ($validator->fails()) {
-            dd($validator);
+            return redirect()->back()->with('error', 'Inputan belum sesuai, periksa kembail');
         }
-
-        // validasi gambar
-        // Validasi isian form
-        // $request->validate([
-        //     'foto_capasitor' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'foto_pipadrainese' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
 
         try {
             DB::beginTransaction();
 
             $transaksi_id = $request->transaksi_id ?? null;
+            $foto = TransactionImages::where('uniq_string', $request->uniq_string)->get('file_name')->toArray();
 
-            $foto = [
-                'foto_kompresor' => app(HelperController::class)->uploadGambar($request->file('foto_kompresor')),
-                'foto_condensor' => app(HelperController::class)->uploadGambar($request->file('foto_condensor')),
-                'foto_motorfan' => app(HelperController::class)->uploadGambar($request->file('foto_motorfan')),
-                'foto_evoprator' => app(HelperController::class)->uploadGambar($request->file('foto_evoprator')),
-                'foto_motorblower' => app(HelperController::class)->uploadGambar($request->file('foto_motorblower')),
-                'foto_capasitor' => app(HelperController::class)->uploadGambar($request->file('foto_capasitor')),
-                'foto_pipadrainese' => app(HelperController::class)->uploadGambar($request->file('foto_pipadrainese')),
-            ];
-
-            // kalau tidak di set transaksi idnya
+            // kalau sudah ada transaksisnya
             if ($transaksi_id) {
                 $transaksi = Transaction::findOrFail($transaksi_id);
             } else {
@@ -101,11 +84,11 @@ class TransactionController extends Controller
 
             DB::commit();
         } catch (\Throwable $th) {
-            dd($th);
-
             DB::rollBack();
+
+            return redirect()->back()->with('error', 'Terdapat kesalahan, Gagal membuat transaksi');
         }
 
-        return redirect('transaksi/'.$transaksi->id);
+        return redirect('transaksi/'.$transaksi->id)->with('success', 'Berhasil membuat transaksi');
     }
 }

@@ -1,43 +1,22 @@
 <div class="row mb-3">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="merk_type_ac">Merk/Type Ac</label>
-            <input type="text" name="merk_type_ac" class="form-control" placeholder="Merk dan Type AC">
+            <label for="deskripsi_service" class="mb-1">Deskripsi Service</label>
+            <textarea name="deskripsi_service" id="deskripsiService" cols="30" rows="5" class="form-control tiny">
+                <ul style="padding-left: 5px">
+                    <li>Merk/Type AC: </li>
+                    <li>PK: </li>
+                    <li>Freon: </li>
+                    <li>Ampere: </li>
+                    <li>Kelistrikan: </li>
+                    
+                    <div>Keterangan tambahan: </div>
+                </ul>
+            </textarea>
         </div>
     </div>
 </div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="pk">PK</label>
-            <input type="text" name="pk" class="form-control" placeholder="Masukkan PK">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="freon">Freon</label>
-            <input type="text" name="freon" class="form-control" placeholder="Masukkan Freon">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="ampere">Ampere</label>
-            <input type="text" name="ampere" class="form-control" placeholder="Masukkan Ampere">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="kelistrikan">Kelistrikan</label>
-            <input type="text" name="kelistrikan" class="form-control">
-        </div>
-    </div>
-</div>
+
 <div class="row mb-3">
     <div class="col-md-12">
         <table style="width: 100%">
@@ -152,76 +131,5 @@
                 </td>
             </tr>
         </table>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <h5>Upload Foto</h5>
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_kompresor">Foto Kompresor</label>
-            <input type="file" name="foto_kompresor" class="form-control" multiple>
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_condensor">Foto Condensor</label>
-            <input type="file" name="foto_condensor" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_motorfan">Foto Motor Fan</label>
-            <input type="file" name="foto_motorfan" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_evoprator">Foto Evoprator</label>
-            <input type="file" name="foto_evoprator" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_motorblower">Foto Motor Blower</label>
-            <input type="file" name="foto_motorblower" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_capasitor">Foto Capasitor</label>
-            <input type="file" name="foto_capasitor" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="foto_pipadrainese">Foto Pipa Drainese</label>
-            <input type="file" name="foto_pipadrainese" class="form-control">
-        </div>
-    </div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="keterangan">Keterangan</label>
-            <textarea name="keterangan" id="" cols="30" rows="5" class="form-control"></textarea>
-        </div>
     </div>
 </div>

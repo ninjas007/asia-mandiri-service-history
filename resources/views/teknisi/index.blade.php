@@ -38,6 +38,7 @@
                 charCode = e.keyCode;
             }
 
+            // ketika tekan enter
             if (charCode == 13) {
                 search();
             }

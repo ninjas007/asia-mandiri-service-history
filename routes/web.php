@@ -16,12 +16,15 @@ Auth::routes();
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('logout', 'Auth\LoginController@logout');
 
+Route::get('/not-found', 'HelperController@notFound');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::prefix('teknisi')->group(function () {
         Route::get('/', 'TechnicianController@index')->name('teknisi');
         Route::get('/search-client', 'TechnicianController@searchClient');
+        Route::get('/service', 'TechnicianController@service');
         Route::get('/client', 'TechnicianController@client');
         Route::get('/client/search-service', 'TechnicianController@clientService');
     });
@@ -42,6 +45,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('client')->group(function () {
         Route::get('/', 'ClientController@index');
     });
+
+    // upload images
+    Route::post('/tmp-upload', 'UploadController@trxImageUpload');
+    Route::post('/tmp-delete', 'UploadController@trxImageDelete');
 
     // Clear application cache:
     Route::get('/clear-cache', function() {

@@ -33,4 +33,9 @@ class HelperController extends Controller
         
         return $message;
     }
+
+    public function notFound()
+    {
+        return view('templates.404');
+    }
 }

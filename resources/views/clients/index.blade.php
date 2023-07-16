@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+<style>
+    table tr td {
+        vertical-align: top;
+    }
+</style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center align-items-center mt-2" style="height: 100%; padding-bottom: 80px">
@@ -26,26 +34,27 @@
                                 <table style="width: 100%">
                                     <tr>
                                         <td width="15%"
-                                            style="text-transform: capitalize; padding-left: 5px; vertical-align: top">
+                                            style="text-transform: capitalize; padding-left: 5px;">
                                             Email</td>
-                                        <td width="2%" style=" vertical-align: top">:</td>
+                                        <td width="2%">:</td>
                                         <td width="83%">{{ $client->email }}</td>
                                         <td rowspan="3">
-                                            <a href="{{ url('akun?detail=1&user_id='.$client->id.'') }}" class="btn btn-primary" title="Detail"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('akun?detail=1&user_id='.$client->id.'') }}" class="btn btn-primary mb-3" title="Detail"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('transaksi-user?user_id='.$client->id.'') }}" class="btn btn-warning" title="Transaksi"><i class="fa fa-list"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="15%"
-                                            style="text-transform: capitalize; padding-left: 5px; vertical-align: top">
+                                            style="text-transform: capitalize; padding-left: 5px;">
                                             No HP</td>
-                                        <td width="2%" style=" vertical-align: top">:</td>
+                                        <td width="2%">:</td>
                                         <td width="83%">{{ $client->nohp_user }}</td>
                                     </tr>
                                     <tr>
                                         <td width="15%"
-                                            style="text-transform: capitalize; padding-left: 5px; vertical-align: top">
+                                            style="text-transform: capitalize; padding-left: 5px;">
                                             Alamat</td>
-                                        <td width="2%" style=" vertical-align: top">:</td>
+                                        <td width="2%">:</td>
                                         <td width="83%">{{ $client->alamat_user }}</td>
                                     </tr>
                                 </table>

@@ -1,5 +1,6 @@
 @php
     $json_detail = json_decode($detail->detail, true);
+    $photos = json_decode($detail->photos, true);
 @endphp
 
 <div class="text-center my-1 border py-2" data-mdb-toggle="collapse" href="#collapseExample{{ $i }}"
@@ -13,25 +14,21 @@
             <tr>
                 <td width="25%" style="text-transform: capitalize; padding-left: 5px; vertical-align: top">{{ str_replace('_', ' ', $key) }}</td>
                 <td width="2%" style=" vertical-align: top">:</td>
-                @if ($key != 'foto')
-                    <td width="73%" style=" vertical-align: top">{{ $item }}</td>
-                @else
-                    <td width="73%" style=" vertical-align: top">
-                        @foreach ($item as $nama_foto => $foto)
-                            <label for=""></label>
-                            <table width="100%">
-                                <tr>
-                                    <td style="text-transform: capitalize">
-                                        {{ str_replace('_', ' ', $nama_foto) }} <br>
-                                        <img src="{{ url('') }}/images/{{ $foto }}" alt="" width="100">
-                                    </td>
-                                </tr>
-                            </table>
-                        @endforeach
-                    </td>
-                @endif
+                <td width="73%" style=" vertical-align: top">{{ $item }}</td>
             </tr>
         @endforeach
-
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div style="margin-left: 5px">
+                    <div class="mb-3" >Foto: </div>
+                    @foreach ($photos as $key => $photo)
+                        <img src="{{ url('/transaction').'/'.$photo['file_name'] }}" alt="" width="100" st>
+                    @endforeach
+                </div>
+            </td>
+        </tr>
     </table>
 </div>

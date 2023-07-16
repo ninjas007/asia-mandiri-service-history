@@ -16,7 +16,9 @@ class CreateTransactionDetailsTable extends Migration
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('transaksi_id');
-            $table->json('detail');
+            $table->json('detail')->nullable();
+            $table->json('deskripsi_service')->nullable();
+            $table->json('photos')->nullable();
             $table->timestamp('tanggal_pengerjaan')->nullable();
             $table->timestamps();
         });
