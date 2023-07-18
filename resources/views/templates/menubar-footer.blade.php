@@ -18,18 +18,24 @@
                 <span style="color: #5f5f5f; font-size: 10px"> @if(auth()->user()->role_id == 0) Transactions @else My Transaction @endif</span>
             </button>
         </a>
-        @if (auth()->user()->role_id == 0)
+        {{-- @if (auth()->user()->role_id == 0)
             <a href="{{ url('client') }}">
                 <button class="btn-menubar">
                     <i class="fa fa-users" style="width: 24px; height: 24px; color: #5f5f5f; font-size: 20px"></i>
                     <span style="color: #5f5f5f; font-size: 10px">Clients</span>
                 </button>
             </a>
-        @endif
+        @endif --}}
         <a href="{{ url('akun') }}">
             <button class="btn-menubar">
                 <i class="fa fa-user" style="width: 24px; height: 24px; color: #5f5f5f; font-size: 20px"></i>
-                <span style="color: #5f5f5f; font-size: 10px">Account</span>
+                <span style="color: #5f5f5f; font-size: 10px">
+                    @if (auth()->user()->role_id == 0)
+                        Accounts
+                    @else
+                        Account
+                    @endif
+                </span>
             </button>
         </a>
         <a href="{{ route('logout') }}">

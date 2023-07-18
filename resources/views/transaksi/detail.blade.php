@@ -9,7 +9,7 @@
                         <h5 class="card-title">Transaksi Detail</h5>
                     </div>
                     <div class="card-body">
-                        <h5 class="mb-3">{{ $transaksi->judul }}</h5>
+                        <h5 class="mb-3 text-weight-bold">Judul Transaksi: {{ $transaksi->judul }}</h5>
                         @foreach ($transaksi_detail as $i => $detail)
                             <div class="py-1">
                                 {{-- service ac --}}

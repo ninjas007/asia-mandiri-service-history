@@ -25,6 +25,7 @@ class TransactionDetailController extends Controller
         $transaksi_detail->photos = json_encode($data_foto);
         $transaksi_detail->deskripsi_service = json_encode($request->deskripsi_service);
         $transaksi_detail->tanggal_pengerjaan = now();
+        $transaksi_detail->created_by = auth()->user()->id;
         $transaksi_detail->save();
 
         return $transaksi_detail;

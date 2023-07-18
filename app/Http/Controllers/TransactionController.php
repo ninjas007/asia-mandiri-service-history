@@ -32,7 +32,7 @@ class TransactionController extends Controller
     public function show($id)
     {
         $data['transaksi'] = Transaction::findOrFail($id);
-        $data['transaksi_detail'] = TransactionDetail::with('transaksi')->where('transaksi_id', $id)->get();
+        $data['transaksi_detail'] = TransactionDetail::with(['transaksi', 'created_by'])->where('transaksi_id', $id)->get();
 
         return view('transaksi.detail', $data);
     }
@@ -85,6 +85,8 @@ class TransactionController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
+
+            dd($th);
 
             return redirect()->back()->with('error', 'Terdapat kesalahan, Gagal membuat transaksi');
         }

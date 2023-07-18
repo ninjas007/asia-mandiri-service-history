@@ -20,8 +20,7 @@ class CheckUserAdmin
         {
             return $next($request);
         }
-        else {
-            return redirect('/');
-        }
+
+        abort(403, 'Unauthorized access.');
     }
 }

@@ -7,38 +7,28 @@
                 <div class="card">
                     <h5 class="card-header">Akun</h5>
                     <div class="card-body">
-                        @if (auth()->user()->role_id == 0 && request()->detail != 1)
-                            <div class="row">
-                                <div class="col-md-6 text-center mb-3">
-                                    <div class="form-group border p-3  ">
-                                        <i class="fa fa-gears" style="color: ; font-size: 4rem"></i>
-                                        <div class="mt-3 font-weight-bold">Teknisi : {{ $total_teknisi }}</div>
-                                    </div>
+
+                        @include('templates.count-users')
+
+                        @if (Request::segment(1) == 'akun' && ($page == 'teknisi' || $page == 'client'))
+                            {{-- hasilnya bisa akun.client || akun.teknisi --}}
+                            @include('akun.' . $page)
+                        @else
+                            <form action="{{ url('akun') }}/update" method="POST">
+
+                                <h5 class="my-4">Edit Akun</h5>
+
+                                @csrf
+                                @if (request()->detail == 1 && $user->role_id == 0)
+                                    @include('akun.form-update-by-admin')
+                                @else
+                                    @include('akun.form-update-own')
+                                @endif
+                                <div class="form-group mb-3">
+                                    <button class="btn btn-primary">Simpan</button>
                                 </div>
-                                <div class="col-md-6 text-center mb-3">
-                                    <div class="form-group border p-3  ">
-                                        <i class="fa fa-users" style="color: ; font-size: 4rem"></i>
-                                        <div class="mt-3 font-weight-bold">Clients : {{ $total_client }}</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <div class="form-group">
-                                        <a href="{{ url('akun/add') }}" class="btn btn-success">Tambah Akun</a>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         @endif
-                        <form action="{{ url('akun') }}/update" method="POST">
-                            @csrf
-                            @if (request()->detail == 1)
-                                @include('akun.form-update-by-admin')
-                            @else
-                                @include('akun.form-update-own')
-                            @endif
-                            <div class="form-group mb-3">
-                                <button class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -48,34 +38,35 @@
 
 @section('js')
     <script type="text/javascript">
-        @if (Session::has('success'))
+        // remove user
+        function removeUser(user_id, name) {
             swal({
-                title: "Berhasil!",
-                text: "{{ Session::get('success') }}",
-                icon: "success",
-                button: "Ok",
-            });
-        @endif
-
-        @if (Session::has('error'))
-            swal({
-                title: "Gagal!",
-                text: "{{ Session::get('error') }}",
+                title: `Delete user`,
+                text: `Yakin ingin menghapus ${name}?`,
                 icon: "warning",
-                button: "Ok",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: `{{ url("akun") }}/remove?user_id=${user_id}`,
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success) {
+                                swal(`${response.success}`, {
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    })
+                }
             });
-        @endif
-
-        $('.show_pass').click(function() {
-            const name = $(this).data('name');
-            const type = $(`.${name}`).attr('type');
-
-            console.log(name, type)
-            if (type == 'text') {
-                $(`.${name}`).attr('type', 'password')
-            } else {
-                $(`.${name}`).attr('type', 'text')
-            }
-        });
+        }
     </script>
+
+    @include('templates.js.change-password')
 @endsection

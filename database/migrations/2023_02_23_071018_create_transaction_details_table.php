@@ -19,6 +19,7 @@ class CreateTransactionDetailsTable extends Migration
             $table->json('detail')->nullable();
             $table->json('deskripsi_service')->nullable();
             $table->json('photos')->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamp('tanggal_pengerjaan')->nullable();
             $table->timestamps();
         });

@@ -40,6 +40,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/add', 'UserController@add');
         Route::post('/update', 'UserController@update');
         Route::post('/save', 'UserController@save');
+
+        Route::middleware('user-admin')->group(function() {
+            Route::get('/detail/{user_id}', 'UserController@detail');
+            Route::get('/remove', 'UserController@remove');
+            Route::get('/teknisi', 'UserController@index');
+            Route::get('/client', 'UserController@index');
+        });
     });
 
     Route::prefix('client')->group(function () {
@@ -50,16 +57,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/tmp-upload', 'UploadController@trxImageUpload');
     Route::post('/tmp-delete', 'UploadController@trxImageDelete');
 
-    // Clear application cache:
-    Route::get('/clear-cache', function() {
-        Artisan::call('config:cache');
-        Artisan::call('view:clear');
-        return 'Application cache has been cleared';
-    });
-
-    Route::get('/migrate-seeder', function() {
-        Artisan::call('migrate:fresh');
-        Artisan::call('db:seed');
-        return 'Application migrate and seeder cleared';
+    Route::middleware('user-admin')->group(function() {
+        // Clear application cache:
+        Route::get('/clear-cache', function() {
+            Artisan::call('config:cache');
+            Artisan::call('view:clear');
+            return 'Application cache has been cleared';
+        });
+    
+        Route::get('/migrate-seeder', function() {
+            Artisan::call('migrate:fresh');
+            Artisan::call('db:seed');
+            return 'Application migrate and seeder cleared';
+        });
     });
 });

@@ -46,7 +46,7 @@
                                 <label for="email" class="col-md-5 col-form-label text-md-right">{{ __('Email') }}</label>
     
                                 <div class="col-md-7">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
     
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -87,41 +87,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-2">
-                                <div class="col-md-12">
-                                    <input type="button" name="password_generate" id="password-generate" class="btn btn-success" value="Generate Password">
-                                </div>
-                            </div>
-    
-                            <div class="form-group row mb-2">
-                                <label for="password" class="col-md-5 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                <div class="col-md-7 input-group">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    <div class="input-group-append">
-                                        <span class="input-group-text show_pass" data-name="password"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                    
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-2">
-                                <label for="password-confirm" class="col-md-5 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-    
-                                <div class="col-md-7 input-group">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-
-                                    <div class="input-group-append">
-                                        <span class="input-group-text show_pass" data-name="password_confirmation"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('templates.form-password-with-generate')
     
                             <div class="form-group row mb-0">
                                 <div class="col-md-12">
@@ -143,15 +109,6 @@
 
 @section('js')
 <script type="text/javascript"> 
-    $('#password-generate').click(function() {
-        let username = $('#name').val();
-        let string = btoa(username);
-        let password = generateRandomString(10) + string;
-
-        $('#password').val(password)
-        $('#password-confirm').val(password)
-    })
-
     $('#role').change(function() {
         let value = $(this).val();
 
@@ -164,19 +121,6 @@
             $('.show_client').show();
         }
     });
-
-    function generateRandomString(length) {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-
-        return result;
-    }
-
-
 
 </script>
 @endsection

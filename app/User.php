@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->where('id', $user_id)->name;
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'karyawan_id', 'id');
+    }
 }

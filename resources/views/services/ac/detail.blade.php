@@ -1,9 +1,10 @@
 @php
     $json_detail = json_decode($detail->detail, true);
     $photos = json_decode($detail->photos, true);
+    $deskripsi_service = json_decode($detail->deskripsi_service);
 @endphp
 
-<div class="text-center my-1 border py-2" data-mdb-toggle="collapse" href="#collapseExample{{ $i }}"
+<div class="text-center bg-dark text-white my-1 border py-2" data-mdb-toggle="collapse" href="#collapseExample{{ $i }}"
     role="button" aria-expanded="false" aria-controls="collapseExample{{ $i }}">
     <b>Detail Item - {{ $i + 1 }}</b>
 </div>
@@ -12,11 +13,19 @@
     <table style="width: 100%">
         @foreach ($json_detail as $key => $item)
             <tr>
-                <td width="25%" style="text-transform: capitalize; padding-left: 5px; vertical-align: top">{{ str_replace('_', ' ', $key) }}</td>
-                <td width="2%" style=" vertical-align: top">:</td>
-                <td width="73%" style=" vertical-align: top">{{ $item }}</td>
+                <td width="25%" style="text-transform: capitalize; padding: 3px; vertical-align: top;">{{ str_replace('_', ' ', $key) }}</td>
+                <td width="2%" style=" vertical-align: top; padding: 3px;">:</td>
+                <td width="73%" style=" vertical-align: top; padding: 3px;">{{ $item }}</td>
             </tr>
         @endforeach
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                {!! $deskripsi_service !!}
+            </td>
+        </tr>
         <tr>
             <td colspan="3">&nbsp;</td>
         </tr>

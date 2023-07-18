@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-12 mb-3">
-            @include('templates.detail-client');
+            @include('templates.detail-client')
 
             <div class="card">
                 <div class="card-header">

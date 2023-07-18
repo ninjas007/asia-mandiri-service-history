@@ -114,6 +114,7 @@
             max-width: 100%;
             margin: 0px auto;
             min-height: 100%;
+            border: .5px solid #e3e3e3;
         }
 
         .body {
@@ -214,6 +215,26 @@
                 $(`input[name="${name}"]`).attr('type', 'text')
             }
         });
+
+        $('#password-generate').click(function() {
+            let username = $('#name').val();
+            let string = btoa(username);
+            let password = generateRandomString(10) + string;
+
+            $('#password').val(password)
+            $('#password-confirm').val(password)
+        })
+
+        function generateRandomString(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return result;
+        }
     </script>
 </body>
 
