@@ -1,4 +1,4 @@
-<h5 class="mb-3 mt-5">Daftar Teknisi</h5>
+<h5 class="mb-3 mt-5">List Teknisi</h5>
 <div class="input-group mb-3">
     <div class="form-outline">
         <input id="search-input" type="search" id="form1" class="form-control"

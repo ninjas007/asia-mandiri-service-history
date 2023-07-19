@@ -54,6 +54,7 @@ class UserController extends Controller
     {
         return  User::withCount('transactions')
                 ->where('role_id', '=', $role_id)
+                ->where('role_id', '>', 0) // bukan admin.. mencegah pencarian data
                 ->offset($offset)
                 ->limit($this->limit)
                 ->get()

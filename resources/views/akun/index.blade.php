@@ -30,7 +30,7 @@
                             </form>
                         @endif
                     </div>
-                    @if ($list_user->isNotEmpty() && ($total_client > $limit || $total_teknisi > $limit))
+                    @if (isset($list_user) && $list_user->isNotEmpty() && ($total_client > $limit || $total_teknisi > $limit))
                         <div class="card-footer bg-dark text-center text-white" id="load-more" onclick="loadMore()">
                             <i class="fa fa-refresh"></i> Lihat Lainnya
                         </div>
@@ -43,8 +43,8 @@
 
 @section('js')
     <script type="text/javascript">
-        var offset = 5;
-        const role_id = `{{ $role_id }}`;
+        var offset = `{{ $limit }}`; // untuk inisalisasi saja
+        const role_id = `{{ $role_id ?? null }}`;
 
         // remove user
         function removeUser(user_id, name) {
@@ -94,7 +94,6 @@
 
                     $('.list-user').append(response.data.html)
 
-                    console.log(offset, total_user);
                     if (offset >= total_user) {
                         element.remove();
                     }
