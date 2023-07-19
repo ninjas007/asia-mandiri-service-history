@@ -3,13 +3,13 @@
         <a href="{{ url('akun/teknisi') }}" class="col-md-6 text-center mb-3">
             <div class="form-group border p-3 {{ $page == 'teknisi' ? 'bg-dark text-white' : 'text-dark' }}">
                 <i class="fa fa-gears" style="color: ; font-size: 4rem"></i>
-                <div class="mt-3 font-weight-bold">Teknisi : {{ $total_teknisi }}</div>
+                <div class="mt-3 font-weight-bold">Teknisi : <span id="total-teknisi">{{ $total_teknisi }}</span></div>
             </div>
         </a>
         <a href="{{ url('akun/client') }}" class="col-md-6 text-center mb-3">
             <div class="form-group border p-3 {{ $page == 'client' ? 'bg-dark text-white' : 'text-dark' }}">
                 <i class="fa fa-users" style="color: ; font-size: 4rem"></i>
-                <div class="mt-3 font-weight-bold">Clients : {{ $total_client }}</div>
+                <div class="mt-3 font-weight-bold">Clients : <span id="total-client">{{ $total_client }}</span></div>
             </div>
         </a>
 

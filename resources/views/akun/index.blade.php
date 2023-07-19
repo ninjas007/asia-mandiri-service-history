@@ -30,6 +30,11 @@
                             </form>
                         @endif
                     </div>
+                    @if ($list_user->isNotEmpty() && ($total_client > $limit || $total_teknisi > $limit))
+                        <div class="card-footer bg-dark text-center text-white" id="load-more" onclick="loadMore()">
+                            <i class="fa fa-refresh"></i> Lihat Lainnya
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -38,6 +43,9 @@
 
 @section('js')
     <script type="text/javascript">
+        var offset = 5;
+        const role_id = `{{ $role_id }}`;
+
         // remove user
         function removeUser(user_id, name) {
             swal({
@@ -65,6 +73,35 @@
                     })
                 }
             });
+        }
+
+        function loadMore() {
+            let element = $('#load-more');
+            let total_user = role_id == 1 ? $('#total-teknisi').text() : $('#total-client').text();
+
+            $.ajax({
+                url: `{{ url('akun')}}/load-more`,
+                dataType: 'JSON',
+                data: {
+                    role_id,
+                    offset,
+                },
+                beforeSend: function() {
+                    element.html('<i class="fa fa-spinner"></i> Loading')
+                },
+                success: function(response) {
+                    offset = parseInt(response.data.offset) + parseInt(offset);
+
+                    $('.list-user').append(response.data.html)
+
+                    console.log(offset, total_user);
+                    if (offset >= total_user) {
+                        element.remove();
+                    }
+                    
+                    element.html('<i class="fa fa-refresh"></i> Lihat Lainnya')
+                }
+            })
         }
     </script>
 

@@ -126,10 +126,10 @@
         .body-header {
             background: #333333;
             padding: 5px;
-            position: relative;
+            position: fixed;
             width: 480px;
             max-width: 100%;
-            z-index: 0;
+            z-index: 99;
         }
 
         .body-header-content {
@@ -157,6 +157,17 @@
             padding-left: 0px;
             padding-right: 0px;
         }
+
+        #load-more {
+            transition: background-color 0.2s ease-in-out, font-size 0.2s ease-in-out;
+        }
+
+        #load-more:hover {
+            background-color: #169c49 !important;
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 
     @yield('css')
@@ -167,7 +178,7 @@
         <div class="body-wrap">
             <div class="body">
                 @include('templates.header')
-                <div class="body-content">
+                <div class="body-content" style="margin-top: 25px">
                     @yield('content')
                 </div>
             </div>

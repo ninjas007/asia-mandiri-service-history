@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::middleware('user-admin')->group(function() {
             Route::get('/detail/{user_id}', 'UserController@detail');
+            Route::get('/load-more', 'UserController@loadMore');
             Route::get('/remove', 'UserController@remove');
             Route::get('/teknisi', 'UserController@index');
             Route::get('/client', 'UserController@index');

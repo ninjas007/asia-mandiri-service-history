@@ -12,6 +12,8 @@ use App\Helper;
 
 class UserController extends Controller
 {
+    protected $limit = 5;
+
     public function index(Request $request)
     {
         $role_slug = $request->segment(2);
@@ -21,15 +23,42 @@ class UserController extends Controller
         $data['page'] = $role_slug;
         $data['total_client'] = User::where('role_id', '=', 2)->count();
         $data['total_teknisi'] = User::where('role_id', '=', 1)->count();
+        $data['limit'] = $this->limit;
 
         if ($role_id) {
-            $data['list_user'] = User::withCount('transactions')
-                                    ->where('role_id', '=', $role_id)
-                                    ->get()
-                                    ->sortByDesc('created_at');
+            $data['role_id'] = $role_id;
+            $data['list_user'] = $this->listUser($role_id);
         }
 
         return view('akun.index', $data);
+    }
+
+    public function loadMore(Request $request)
+    {
+        $offset = $request->offset;
+        $data['list_user'] = $this->listUser($request->role_id, $offset);
+
+        $html = view('akun.list-user', $data)->render();
+
+        return response()->json(
+            [
+                'data' => [
+                    'html' => $html,
+                    'offset' => $offset
+                ]
+            ]
+        );
+    }
+
+    private function listUser($role_id, $offset = 0)
+    {
+        return  User::withCount('transactions')
+                ->where('role_id', '=', $role_id)
+                ->offset($offset)
+                ->limit($this->limit)
+                ->get()
+                ->sortByDesc('created_at');
+
     }
 
     public function add(Request $request)
