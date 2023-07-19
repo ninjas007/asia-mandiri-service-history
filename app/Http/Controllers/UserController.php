@@ -127,12 +127,15 @@ class UserController extends Controller
                 'role_id' => $request->role
             ];
 
-            if ($request->role == 2 && $request->role == 1) {
+            $redirect = 'akun';
+            if ($request->role == 2 || $request->role == 1) {
                 $data['alamat_user'] = $request->alamat;
                 $data['nohp_user'] = $request->no_hp;
+                $redirect = 'akun/teknisi';
 
                 if ($request->role == 2) {
                     $data['nama_user'] = $request->nama_client;
+                    $redirect = 'akun/client';
                 }
             }
 
@@ -150,7 +153,7 @@ class UserController extends Controller
             HelperController::handleError($th);
         }
 
-        return redirect('akun')->with($return);
+        return redirect($redirect)->with($return);
     }
 
     public function remove(Request $request)

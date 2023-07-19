@@ -1,6 +1,7 @@
-<div class="form-group row mb-2">
+<div class="form-group row mb-2 mt-4">
     <div class="col-md-12">
-        <input type="button" name="password_generate" id="password-generate" class="btn btn-success" value="Generate Password">
+        {{-- <input type="button" name="password_generate" id="password-generate" class="btn btn-success" value="Generate Password"> --}}
+        <a href="javascript:void" class="btn btn-dark" id="password-generate"><i class="fa fa-refresh"></i> Generate Password</a>
     </div>
 </div>
 

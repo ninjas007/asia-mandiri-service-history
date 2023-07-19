@@ -5,7 +5,7 @@
             placeholder="Cari teknisi berdasarkan nama, email, atau no hp" />
         <label class="form-label" for="form1">Cari Teknisi</label>
     </div>
-    <button id="search-button" type="button" class="btn btn-primary">
+    <button id="search-button" type="button" class="btn btn-success">
         <i class="fas fa-search"></i>
     </button>
 </div>

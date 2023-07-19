@@ -91,15 +91,12 @@
     
                             <div class="form-group row mb-0">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary form-control">
-                                        {{ __('Register') }}
+                                    <button type="submit" class="btn btn-dark form-control">
+                                        <i class="fa fa-user"></i> {{ __('Register') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ url('client') }}" class="btn btn-warning mt-2">Kembali</a>
                     </div>
                 </div>
             </div>

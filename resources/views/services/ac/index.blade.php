@@ -43,7 +43,7 @@
 
             <div class="row mb-3 mt-3">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-success form-control">Simpan</button>
+                    <button type="submit" class="btn btn-dark form-control">Simpan</button>
                 </div>
             </div>
         </div>

@@ -65,7 +65,7 @@
                         <div class="mt-3">Total Client : {{ $total_client }}</div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ url('akun/add?add_client=1') }}" class="btn btn-primary mt-2">Tambah Client</a>
+                        <a href="{{ url('akun/add?add_client=1') }}" class="btn btn-dark mt-2">Tambah Client</a>
                     </div>
                 </div>
             </div>

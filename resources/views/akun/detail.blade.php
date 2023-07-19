@@ -15,7 +15,7 @@
                             @include('akun.form-update-by-admin', ['by_admin' => true])
 
                             <div class="form-group mb-3">
-                                <button class="btn btn-primary">Simpan</button>
+                                <button class="btn btn-dark">Simpan</button>
                             </div>
                         </form>
                     </div>

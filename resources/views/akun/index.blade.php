@@ -25,7 +25,7 @@
                                     @include('akun.form-update-own')
                                 @endif
                                 <div class="form-group mb-3">
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <button class="btn btn-dark">Simpan</button>
                                 </div>
                             </form>
                         @endif
