@@ -86,19 +86,15 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->alamat_user = $request->alamat;
+        $user->nohp_user = $request->no_hp;
 
         if ($user->role_id == 2 && $update_by_admin) {
-            $user->alamat_user = $request->alamat;
-            $user->nohp_user = $request->no_hp;
             $user->nama_user = $request->nama_client;
-
             $redirect = 'akun/client';
         }
 
         if ($user->role_id == 1 && $update_by_admin) {
-            $user->alamat_user = $request->alamat;
-            $user->nohp_user = $request->no_hp;
-
             $redirect = 'akun/teknisi';
         }
 
