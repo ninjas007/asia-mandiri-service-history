@@ -18,7 +18,13 @@ class UserController extends Controller
     {
         $role_slug = $request->segment(2);
         $role_id = Helper::roleIdBySlug($role_slug); // result: teknisi or client id nya
+        $filter = $request->filter ?? '';
+
+        if ($request->search_role && $filter) {
+            $role_id = $request->search_role;
+        }
         
+        $data['filter'] = $filter;
         $data['user'] = auth()->user();
         $data['page'] = $role_slug;
         $data['total_client'] = User::where('role_id', '=', 2)->count();
@@ -27,8 +33,8 @@ class UserController extends Controller
 
         if ($role_id) {
             $data['role_id'] = $role_id;
-            $data['list_user'] = $this->listUser($role_id);
-            $data['total_user'] = $this->totalUserByRole($role_id);
+            $data['list_user'] = $this->listUser($role_id, $filter);
+            $data['total_user'] = $this->totalUserByRole($role_id, $filter);
         }
 
         return view('akun.index', $data);
@@ -37,7 +43,7 @@ class UserController extends Controller
     public function loadMore(Request $request)
     {
         $offset = $request->offset;
-        $data['list_user'] = $this->listUser($request->role_id, $offset);
+        $data['list_user'] = $this->listUser($request->role_id, $request->filter, $offset);
 
         $html = view('akun.list-user', $data)->render();
 
@@ -51,21 +57,43 @@ class UserController extends Controller
         );
     }
 
-    public function listUser($role_id, $offset = 0)
+    public function listUser($role_id, $filter = null,  $offset = 0)
     {
-        return  User::withCount('transactions')
-                ->where('role_id', '=', $role_id)
-                ->where('role_id', '>', 0) // bukan admin.. mencegah pencarian data
-                ->offset($offset)
-                ->limit($this->limit)
-                ->get()
-                ->sortByDesc('created_at');
+        $user =  User::withCount('transactions')
+                    ->where('role_id', '=', $role_id)
+                    ->where('role_id', '>', 0); // bukan admin.. mencegah pencarian data
+
+        // filter berdasarkan nama, email, nama_toko, no_hp
+        if ($filter) {
+            $this->filterUser($user, $filter);
+        }
+
+        return $user->offset($offset)
+            ->limit($this->limit)
+            ->get()
+            ->sortByDesc('created_at');
 
     }
 
-    public function totalUserByRole($role_id)
+    public function totalUserByRole($role_id, $filter = null)
     {
-        return User::where('role_id', '=', $role_id)->count();
+        $user =  User::where('role_id', '=', $role_id);
+
+        if ($filter) {
+            $this->filterUser($user, $filter);
+        }
+        
+        return $user->count();
+    }
+
+    private function filterUser($query, $filter)
+    {
+        $query->where(function ($query) use ($filter) {
+            $query->where('name', 'like', '%' . $filter . '%')
+                ->orWhere('email', 'like', '%' . $filter . '%')
+                ->orWhere('nama_user', 'like', '%' . $filter . '%')
+                ->orWhere('nohp_user', 'like', '%' . $filter . '%');
+        });
     }
 
     public function add(Request $request)

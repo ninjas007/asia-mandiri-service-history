@@ -45,6 +45,7 @@
     <script type="text/javascript">
         var offset = `{{ $limit }}`; // untuk inisalisasi saja
         const role_id = `{{ $role_id ?? null }}`;
+        const filter = `{{ $filter }}`;
 
         // remove user
         function removeUser(user_id, name) {
@@ -101,6 +102,22 @@
                     element.html('<i class="fa fa-refresh"></i> Lihat Lainnya')
                 }
             })
+        }
+
+        function searchUser() {
+            let element = $('#cari-user');
+            let filter = element.val();
+
+            window.location.href = `{{ url()->current() }}?search_role=${role_id}&filter=${filter}`;
+        }
+
+        function onKeySearchUser() {
+            let element = $('#cari-user');
+
+            // jika dari filter dan search di inputannya kosong agar refresh halaman
+            if (filter && element.val() == "") {
+                window.location.href = `{{ url()->current() }}`
+            }
         }
     </script>
 
