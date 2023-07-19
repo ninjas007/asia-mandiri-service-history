@@ -30,7 +30,7 @@
                             </form>
                         @endif
                     </div>
-                    @if (isset($list_user) && $list_user->isNotEmpty() && ($total_client > $limit || $total_teknisi > $limit))
+                    @if (isset($list_user) && $list_user->isNotEmpty() && isset($total_user) && $total_user > $limit)
                         <div class="card-footer bg-dark text-center text-white" id="load-more" onclick="loadMore()">
                             <i class="fa fa-refresh"></i> Lihat Lainnya
                         </div>

@@ -28,6 +28,7 @@ class UserController extends Controller
         if ($role_id) {
             $data['role_id'] = $role_id;
             $data['list_user'] = $this->listUser($role_id);
+            $data['total_user'] = $this->totalUserByRole($role_id);
         }
 
         return view('akun.index', $data);
@@ -50,7 +51,7 @@ class UserController extends Controller
         );
     }
 
-    private function listUser($role_id, $offset = 0)
+    public function listUser($role_id, $offset = 0)
     {
         return  User::withCount('transactions')
                 ->where('role_id', '=', $role_id)
@@ -60,6 +61,11 @@ class UserController extends Controller
                 ->get()
                 ->sortByDesc('created_at');
 
+    }
+
+    public function totalUserByRole($role_id)
+    {
+        return User::where('role_id', '=', $role_id)->count();
     }
 
     public function add(Request $request)
