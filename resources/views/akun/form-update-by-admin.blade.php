@@ -2,7 +2,7 @@
 <input type="hidden" name="user_id" value="{{ request()->user_id }}">
 
 <div class="form-group row mb-2">
-    <label for="name" class="col-md-5 col-form-label text-md-right">Username</label>
+    <label for="name" class="col-md-5 col-form-label text-md-right">Nama</label>
 
     <div class="col-md-7">
         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"

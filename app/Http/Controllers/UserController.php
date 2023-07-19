@@ -49,6 +49,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $update_by_admin = $request->update_by_admin;
+        $redirect = 'akun';
 
         // validasi password kalau ganti password
         if ($request->change_password) {
@@ -90,16 +91,20 @@ class UserController extends Controller
             $user->alamat_user = $request->alamat;
             $user->nohp_user = $request->no_hp;
             $user->nama_user = $request->nama_client;
+
+            $redirect = 'akun/client';
         }
 
         if ($user->role_id == 1 && $update_by_admin) {
             $user->alamat_user = $request->alamat;
             $user->nohp_user = $request->no_hp;
+
+            $redirect = 'akun/teknisi';
         }
 
         $user->save();
 
-        return redirect('akun')->with(['success' => 'Berhasil mengubah data']);
+        return redirect($redirect)->with(['success' => 'Berhasil mengubah data']);
     }
 
     public function save(Request $request)
