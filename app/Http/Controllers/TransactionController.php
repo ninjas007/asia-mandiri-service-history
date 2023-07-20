@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use App\TransactionImages;
 use App\Transaction;
 use App\TransactionDetail;
@@ -22,8 +23,11 @@ class TransactionController extends Controller
             $transaksi->where('karyawan_id', auth()->user()->id); // karyawan
         }
         
-        $transaksi = $transaksi->limit(10)->get();
-
+        $transaksi = $transaksi
+                    ->with(['teknisi', 'clientDetail'])
+                    ->paginate(2);
+        
+        $data['services'] = Service::all();
         $data['list_transaksi'] = $transaksi;
 
         return view('transaksi.index', $data);

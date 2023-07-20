@@ -168,6 +168,13 @@
             cursor: pointer;
             font-weight: bold;
         }
+
+        .own-btn:hover {
+            background-color: #333333 !important;
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 
     @yield('css')

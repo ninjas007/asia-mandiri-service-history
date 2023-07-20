@@ -3,12 +3,12 @@
         <div class="form-group">
             <label for="deskripsi_service" class="mb-1">Deskripsi Service</label>
             <textarea name="deskripsi_service" id="deskripsiService" cols="30" rows="5" class="form-control tiny">
-                <ul style="padding-left: 5px">
-                    <li>Merk/Type AC: </li>
-                    <li>PK: </li>
-                    <li>Freon: </li>
-                    <li>Ampere: </li>
-                    <li>Kelistrikan: </li>
+                <ul style="padding-left: 7px">
+                    <li style="margin-bottom: 5px">Merk/Type AC:&nbsp;</li>
+                    <li style="margin-bottom: 5px">PK:&nbsp;</li>
+                    <li style="margin-bottom: 5px">Freon:&nbsp;</li>
+                    <li style="margin-bottom: 5px">Ampere:&nbsp;</li>
+                    <li style="margin-bottom: 5px">Kelistrikan:&nbsp;</li>
                     
                     <div>Keterangan tambahan: </div>
                 </ul>

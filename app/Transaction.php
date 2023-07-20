@@ -30,7 +30,7 @@ class Transaction extends Model
 
     public function clientDetail()
     {
-        return $this->hasOne(ClientDetail::class, 'id', 'client_id');
+        return $this->hasOne(User::class, 'id', 'client_id');
     }
 
     public function getAttrLatestHistoryAttribute()
