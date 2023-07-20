@@ -25,7 +25,7 @@ class TransactionController extends Controller
         
         $transaksi = $transaksi
                     ->with(['teknisi', 'clientDetail'])
-                    ->paginate(2);
+                    ->paginate(10);
         
         $data['services'] = Service::all();
         $data['list_transaksi'] = $transaksi;
