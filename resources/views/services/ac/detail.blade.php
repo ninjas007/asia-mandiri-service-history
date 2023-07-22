@@ -39,5 +39,21 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button class="btn btn-danger float-end remove-detail" data-mdb-toggle="tooltip" title="Hapus detail transaksi" data-transaksi_detail_id="{{ $detail->id }}">
+                    <i class="fa fa-trash"></i> Hapus Detail
+                </button>
+                <button class="btn btn-primary float-end me-3" data-mdb-toggle="tooltip" title="Edit detail transaksi">
+                    <i class="fa fa-pencil"></i> Edit Detail
+                </button>
+            </td>
+        </tr>
     </table>
 </div>

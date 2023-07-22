@@ -20,4 +20,11 @@ class TransactionHistoryController extends Controller
 
         $transaksi_history->save();
     }
+
+    public function delete($transaksi_id)
+    {
+        $trx_history_ids = TransactionHistory::where('transaksi_id', $transaksi_id)->pluck('id')->toArray();
+
+        TransactionHistory::destroy($trx_history_ids);
+    }
 }

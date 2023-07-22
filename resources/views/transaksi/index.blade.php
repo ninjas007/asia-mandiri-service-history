@@ -9,6 +9,26 @@
 .list-group-item:hover {
     background: #eeeeee;
 }
+
+.pagination {
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+ul.pagination .page-link {
+    color: #ffffff;
+    font-size: 14px;
+}
+ul.pagination li {
+    margin: 0px 2px;
+}
+
+ul.pagination li.active span.page-link,
+ul.pagination li.disabled span.page-link {
+    color: #333333;
+    background-color: #eeeeee;
+    font-weight: bold;
+}
 </style>
 @endsection
 
@@ -24,7 +44,9 @@
                         @include('transaksi.filter-transaksi')
                     </div>
 
-                    <h5 class="mb-3 mt-5" style="margin-left: 20px">LIST TRANSAKSI</h5>
+                    <h5 class="mb-3" style="margin-left: 20px">
+                       <i class="fa fa-list"></i> LIST TRANSAKSI
+                    </h5>
                     <ul class="list-group list-group-flush">
                         @foreach ($list_transaksi as $transaksi)
                             <a href="{{ url('transaksi/' . $transaksi->id . '') }}" style="color: #3e3e3e">
@@ -76,12 +98,15 @@
                         @endforeach
                     </ul>
 
-                    <div class="card-footer mt-2">
-                        <div class="row">
-                            <div class="col-md-6">
-                                Total Transaksi : {{ $list_transaksi->total() }}
+                    <div class="card-footer my-2 bg-dark text-white text-center">
+                        {{-- Lihat Lainnya --}}
+                        <div class="row my-3">
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                Total Transaksi {{ $list_transaksi->total() }}
                             </div>
-                            <div class="col-md-6 float-right">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
                                 {{ $list_transaksi->links() }}
                             </div>
                         </div>

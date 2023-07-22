@@ -32,7 +32,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('transaksi')->group(function () {
         Route::get('/', 'TransactionController@index');
         Route::get('/{transaksi_id}', 'TransactionController@show');
+        Route::post('/{transaksi_id}/remove', 'TransactionController@destroy');
         Route::post('/save', 'TransactionController@save');
+    });
+
+    Route::prefix('transaksi-detail')->group(function () {
+        Route::post('/{transaksi_id}/remove', 'TransactionDetailController@destroy');
     });
 
     Route::prefix('akun')->group(function () {

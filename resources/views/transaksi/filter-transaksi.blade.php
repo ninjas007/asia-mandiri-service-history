@@ -1,9 +1,20 @@
 <div class="filter-section">
-    <h5 class="mb-3">FILTER</h5>
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <label for="datepicker">Date:</label>
-            <input type="text" id="datepicker" class="form-control" placeholder="Select date">
+    <h5 class="mb-3">
+        <i class="fa fa-search"></i> FILTER
+    </h5>
+    <div class="text-center bg-dark text-white my-1 border py-2" data-mdb-toggle="collapse" href="#collapseFilter"
+        role="button" aria-expanded="false" aria-controls="collapseFilter">
+        <b>SET FILTER</b>
+    </div>
+
+    <div class="row collapse pt-2" id="collapseFilter">
+        <div class="col-md-6 mb-3">
+            <label for="datepicker">Date Start:</label>
+            <input type="date" id="dateEnd" class="form-control" placeholder="Select date">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="datepicker">Date End:</label>
+            <input type="date" id="dateEnd" class="form-control" placeholder="Select date">
         </div>
         <div class="col-md-6 mb-3">
             <label for="layanan">Layanan:</label>
@@ -44,11 +55,10 @@
                 {{-- Add more options here if needed --}}
             </select>
         </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-warning mt-3">Reset</button>
-            <button type="button" class="btn btn-success mt-3">Filter</button>
+        <div class="col-md-12 mt-2">
+            <button type="button" class="btn btn-warning float-end">Reset</button>
+            <button type="button" class="btn btn-success mx-3 float-end">Filter</button>
         </div>
     </div>
 </div>
+<hr>

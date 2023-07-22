@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Service;
-use App\TransactionImages;
 use App\Transaction;
 use App\TransactionDetail;
 use Illuminate\Http\Request;
@@ -25,6 +24,7 @@ class TransactionController extends Controller
         
         $transaksi = $transaksi
                     ->with(['teknisi', 'clientDetail'])
+                    ->orderBy('created_at', 'DESC')
                     ->paginate(10);
         
         $data['services'] = Service::all();
@@ -43,6 +43,8 @@ class TransactionController extends Controller
 
     public function save(Request $request)
     {
+        $transaksi_id = $request->transaksi_id ?? null;
+
         // validasi
         $validator = Validator::make($request->all(), [
             'kompresor' => 'required',
@@ -62,8 +64,7 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
 
-            $transaksi_id = $request->transaksi_id ?? null;
-            $foto = TransactionImages::where('uniq_string', $request->uniq_string)->get('file_name')->toArray();
+            $foto = app(TransactionImagesController::class)->getDataWhere($request->uniq_string, ['file_name', 'uniq_string'])->toArray();
 
             // kalau sudah ada transaksisnya
             if ($transaksi_id) {
@@ -79,22 +80,99 @@ class TransactionController extends Controller
             }
 
             // save transaksi detail
-            app(\App\Http\Controllers\TransactionDetailController::class)->save($request, $transaksi, $foto);
+            app(TransactionDetailController::class)->save($request, $transaksi, $foto);
 
             // save transaksi history
             // save transaksi status 1
-            $status_transaksi = 1;
-            app(\App\Http\Controllers\TransactionHistoryController::class)->save($transaksi, $status_transaksi);
+            app(TransactionHistoryController::class)->save($transaksi, 1);
 
+            // hapus data di transaction images jika sudah save
+            app(TransactionImagesController::class)->destroy($request->uniq_string);
+            
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            dd($th);
+            if (config('app.debug')) dd($th);
 
             return redirect()->back()->with('error', 'Terdapat kesalahan, Gagal membuat transaksi');
         }
 
         return redirect('transaksi/'.$transaksi->id)->with('success', 'Berhasil membuat transaksi');
+    }
+
+    /**
+     * query remove transaksi by ORM
+     * 
+     * @param string|integer transaksi id
+     * 
+     * @return void
+     */
+    public function delete($transaksi_id)
+    {
+        Transaction::where('id', '=', $transaksi_id)->first()->delete();
+    }
+
+    /**
+     * method to remove transaksi with relationship
+     * 
+     * @param Request $request
+     * @param string|integer transaksi id
+     * @
+     *
+     * @return json
+     */
+    public function destroy(Request $request, $transaksi_id)
+    {
+        try {
+            DB::beginTransaction();
+
+            // hapus transaksi
+            app(TransactionController::class)->delete($transaksi_id);
+                
+            // hapus semua transaksi status
+            app(TransactionHistoryController::class)->delete($transaksi_id);
+
+            // hapus semua gambar
+            app(TransactionImagesController::class)->deleteImages(
+                app(TransactionDetailController::class)->destroyDetailByTransaksiId($request, $transaksi_id),
+                'transaction'
+            ); 
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            if (config('app.debug')) dd($th);
+
+            return response()->json([
+                'message' => 'Terdapat kesalahan, Gagal menghapus transaksi', 
+                'redirect' => '/transaksi',
+                'status' => 'error',
+            ]);
+        }
+        
+        return response()->json([
+            'message' => 'Berhasil menghapus transaksi', 
+            'redirect' => '/transaksi',
+            'status' => 'success'
+        ]);
+    }
+
+    /**
+     * method to destroy trankasi from transaction detail request
+     * 
+     * @param Request $reqeust
+     * @param string transaksi id
+     * 
+     * @return void
+     */
+    public function destroyByTransactionDetail(Request $request, $transaksi_id)
+    {
+        // get query ORM to delete
+        app(TransactionController::class)->delete($transaksi_id);
+            
+        // hapus semua transaksi status
+        app(TransactionHistoryController::class)->delete($transaksi_id);
     }
 }

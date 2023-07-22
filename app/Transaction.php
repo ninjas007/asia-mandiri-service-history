@@ -40,4 +40,9 @@ class Transaction extends Model
                     ->orderBy('transaction_histories.id', 'DESC')
                     ->first();
     }
+
+    public function histories()
+    {
+        return $this->hasMany(TransactionHistory::class, 'transaksi_id', 'id');
+    }
 }
