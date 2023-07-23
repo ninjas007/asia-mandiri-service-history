@@ -130,8 +130,8 @@ ul.pagination li.disabled span.page-link {
                 let dateStart = $('#dateStart').val();
                 let dateEnd = $('#dateEnd').val();
                 let layanan = $('#layanan').val();
-                let client = $('#client').val();
-                let teknisi = $('#teknisi').val();
+                let client = $('#client').val() ?? '';
+                let teknisi = $('#teknisi').val() ?? '';
                 let status = $('#status').val();
 
                 url = `{{ url()->current() }}?filter=1`;

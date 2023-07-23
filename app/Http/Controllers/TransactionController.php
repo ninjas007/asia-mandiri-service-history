@@ -76,7 +76,8 @@ class TransactionController extends Controller
 
         if ($status) {
             $query->whereHas('histories', function ($query) use ($status) {
-                $query->from('transaction_histories')
+                $query->select('id')
+                        ->from('transaction_histories')
                         ->where('transaksi_status_id', '=', $status);
             });
         }
