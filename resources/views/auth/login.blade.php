@@ -11,7 +11,7 @@
                             @csrf
 
                             <div class="form-group mb-3 border">
-                                <img src="https://ame.biz.id/wp-content/uploads/2020/06/logo-biru.png" class="img-fluid" alt="">
+                                <img src="{{ asset('images/login-picture.png') }}" class="img-fluid" alt="">
                             </div>
 
                             <div class="form-group text-center">
