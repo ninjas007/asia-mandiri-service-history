@@ -17,12 +17,13 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $transaksi = Transaction::with(['service', 'histories']);
-
+        $user = auth()->user();
+        
         // client
-        if (auth()->user()->role_id == 2) {
-            $transaksi->where('client_id', auth()->user()->id);
-        } else if (auth()->user()->role_id == 1){
-            $transaksi->where('karyawan_id', auth()->user()->id); // karyawan
+        if ($user->role_id == 2) {
+            $transaksi->where('client_id', $user->id);
+        } else if ($user->role_id == 1){
+            $transaksi->where('karyawan_id', $user->id); // karyawan
         }
 
         if ($request->filter == 1) {
@@ -41,6 +42,7 @@ class TransactionController extends Controller
         $data['list_client'] = User::where('role_id', 2)->get();
         $data['list_teknisi'] = User::where('role_id', 1)->get();
         $data['list_status'] = TransactionStatus::all();
+        $data['role_id'] = $user->role_id;
 
         return view('transaksi.index', $data);
     }

@@ -25,24 +25,28 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-6 mb-3">
-            <label for="client">Client:</label>
-            <select id="client" class="form-control js-select2" style="width: 100%">
-                <option value="">Semua Client</option>
-                @foreach ($list_client as $client)
-                    <option value="{{ $client->id }}" {{ ($filter['client'] ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="teknisi">Teknisi:</label>
-            <select id="teknisi" class="form-control js-select2" style="width: 100%">
-                <option value="">Semua Teknisi</option>
-                @foreach ($list_teknisi as $teknisi)
-                    <option value="{{ $teknisi->id }}" {{ ($filter['teknisi'] ?? '') == $teknisi->id ? 'selected' : '' }}>{{ $teknisi->name }}</option>
-                @endforeach
-            </select>
-        </div>
+        @if ($role_id == 0 || $role_id == 1)
+            <div class="col-md-6 mb-3">
+                <label for="client">Client:</label>
+                <select id="client" class="form-control js-select2" style="width: 100%">
+                    <option value="">Semua Client</option>
+                    @foreach ($list_client as $client)
+                        <option value="{{ $client->id }}" {{ ($filter['client'] ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
+        @if ($role_id == 2)
+            <div class="col-md-6 mb-3">
+                <label for="teknisi">Teknisi:</label>
+                <select id="teknisi" class="form-control js-select2" style="width: 100%">
+                    <option value="">Semua Teknisi</option>
+                    @foreach ($list_teknisi as $teknisi)
+                        <option value="{{ $teknisi->id }}" {{ ($filter['teknisi'] ?? '') == $teknisi->id ? 'selected' : '' }}>{{ $teknisi->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
         <div class="col-md-6">
             <label for="status">Status:</label>
             <select id="status" class="form-control js-select2" style="width: 100%">
