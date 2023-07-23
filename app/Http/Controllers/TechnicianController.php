@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service;
 use App\User;
 use App\Transaction;
+use App\TransactionDetail;
 use Illuminate\Http\Request;
 
 class TechnicianController extends Controller
@@ -79,17 +80,37 @@ class TechnicianController extends Controller
             $data['transaksi'] = Transaction::where('id', $transaksi_id)->first();
         }
 
-
         return view(
             $this->viewService($data['template_service']->slug), 
             $data
         );
     }
 
-    private function viewService($key)
+    public function serviceEdit(Request $request, $transaksi_detail_id)
+    {
+        $transaksi_detail = app(TransactionDetailController::class)->getTransactionDetailById($transaksi_detail_id);
+        $transaksi = Transaction::where('id', $transaksi_detail->transaksi_id)->where('karyawan_id', auth()->user()->id)->first();
+
+        if (!$transaksi) {
+            return abort(404, 'Transaksi tidak ditemukan atau user tidak mendapatkan akses edit');
+        }
+
+        $data['transaksi_detail'] = $transaksi_detail;
+        $data['template_service'] = Service::where('id', $transaksi->jenis_service)->first();
+        $data['transaksi'] = $transaksi;
+        $data['client'] = User::findOrFail($transaksi->client_id);
+        $data['edit'] = true;
+
+        return view(
+            $this->viewService($data['template_service']->slug, 'edit'), 
+            $data
+        );
+    }
+
+    private function viewService($key, $page = 'index')
     {
         $data = [
-            'service-ac' => 'services.ac.index',
+            'service-ac' => 'services.ac.'.$page,
             'service-komputer' => 'services.komputer.index'
         ];
 

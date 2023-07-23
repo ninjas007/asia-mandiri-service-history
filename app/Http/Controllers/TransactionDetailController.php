@@ -32,6 +32,45 @@ class TransactionDetailController extends Controller
         return $transaksi_detail;
     }
 
+    public function update(Request $request, $transaksi_detail_id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = [
+                'kompresor' => $request->kompresor ?? null,
+                'condensor' => $request->condensor ?? null,
+                'motor_fan' => $request->motor_fan ?? null,
+                'evoprator' => $request->evoprator ?? null,
+                'motor_blower' => $request->motor_blower ?? null,
+                'capasitor' => $request->capasitor ?? null,
+                'pipa_drainase' => $request->pipa_drainase ?? null,
+            ];
+    
+            $transaksi_detail = TransactionDetail::where('id', $transaksi_detail_id)->first();
+    
+            $transaksi_detail->detail = json_encode($data);
+            $transaksi_detail->deskripsi_service = json_encode($request->deskripsi_service);
+            $transaksi_detail->updated_at = now();
+            $transaksi_detail->save();
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            if(config('app.debug')) dd($th);
+
+            return redirect()->back()->with('error', 'Terdapat kesalahan, Gagal mengubah transaksi detail');
+        }
+
+        return redirect('transaksi/'.$transaksi_detail->transaksi_id)->with('success', 'Berhasil mengubah transaksi detail');
+    }
+
+    public function getTransactionDetailById($transaksi_detail_id)
+    {
+        return TransactionDetail::where('id', $transaksi_detail_id)->first();
+    }
+
     /**
      * orm to remove transaksi detail, single delete
      * 
@@ -105,16 +144,14 @@ class TransactionDetailController extends Controller
      * 
      * @return json
      */
-    public function destroy(Request $request, $transaksi_id)
+    public function destroy(Request $request, $transaksi_detail_id)
     {
-        $transaksi_detail_id = $request->transaksi_detail_id ?? null;
+        $transaksi_detail = TransactionDetail::where('id', $transaksi_detail_id)->first();
+        $transaksi_id = $transaksi_detail_id = $transaksi_detail->transaksi_id;
         $redirect = '/transaksi/'.$transaksi_id;
 
         try {
             DB::beginTransaction();
-
-            // temp transaksi detail
-            $transaksi_detail = TransactionDetail::where('id', $transaksi_detail_id)->first();
 
             app(TransactionDetailController::class)->delete($request, $transaksi_detail_id);
 

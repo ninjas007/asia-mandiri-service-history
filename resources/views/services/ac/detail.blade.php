@@ -50,9 +50,13 @@
                 <button class="btn btn-danger float-end remove-detail" data-mdb-toggle="tooltip" title="Hapus detail transaksi" data-transaksi_detail_id="{{ $detail->id }}">
                     <i class="fa fa-trash"></i> Hapus Detail
                 </button>
-                <button class="btn btn-primary float-end me-3" data-mdb-toggle="tooltip" title="Edit detail transaksi">
+                <a 
+                href="{{ url('teknisi') }}/service/edit/{{ $detail->id }}" 
+                class="btn btn-primary float-end me-3" 
+                data-mdb-toggle="tooltip" 
+                title="Edit detail transaksi">
                     <i class="fa fa-pencil"></i> Edit Detail
-                </button>
+                </a>
             </td>
         </tr>
     </table>

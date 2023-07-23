@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', 'TechnicianController@index')->name('teknisi');
         Route::get('/search-client', 'TechnicianController@searchClient');
         Route::get('/service', 'TechnicianController@service');
+        Route::get('/service/edit/{transaksi_detail_id}', 'TechnicianController@serviceEdit');
         Route::get('/client', 'TechnicianController@client');
         Route::get('/client/search-service', 'TechnicianController@clientService');
     });
@@ -32,12 +33,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('transaksi')->group(function () {
         Route::get('/', 'TransactionController@index');
         Route::get('/{transaksi_id}', 'TransactionController@show');
-        Route::post('/{transaksi_id}/remove', 'TransactionController@destroy');
+        Route::post('/remove/{transaksi_id}', 'TransactionController@destroy');
         Route::post('/save', 'TransactionController@save');
     });
 
     Route::prefix('transaksi-detail')->group(function () {
-        Route::post('/{transaksi_id}/remove', 'TransactionDetailController@destroy');
+        Route::post('/remove/{transaksi_detail_id}/', 'TransactionDetailController@destroy');
+        Route::post('/update/{transaksi_detail_id}', 'TransactionDetailController@update');
     });
 
     Route::prefix('akun')->group(function () {

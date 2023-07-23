@@ -60,14 +60,11 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: `{{ url('transaksi-detail') }}/${transaksi_id}/remove`,
+                        url: `{{ url('transaksi-detail') }}/remove/${transaksi_detail_id}`,
                         dataType: 'JSON',
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        data: {
-                            transaksi_detail_id: transaksi_detail_id
                         },
                         success: function(response) {
                             if (response.message) {
@@ -95,7 +92,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: `{{ url()->current() }}/remove`,
+                        url: `{{ url('transaksi') }}/remove/${transaksi_id}`,
                         dataType: 'JSON',
                         method: 'POST',
                         headers: {

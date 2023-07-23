@@ -7,7 +7,7 @@
             <li class="list-group-item list-group-item-action" style="padding-left: 5px">Nama: {{ $client->nama_user }}</li>
             <li class="list-group-item list-group-item-action" style="padding-left: 5px">Nomor HP: {{ $client->nohp_user }}</li>
             <li class="list-group-item list-group-item-action" style="padding-left: 5px">Alamat: {{ $client->alamat_user }}</li>
-            @if (request()->get('transaksi_id') )
+            @if (request()->get('transaksi_id') || isset($edit))
                 <li class="list-group-item list-group-item-action" style="padding-left: 5px">Judul Transaksi : {{ $transaksi->judul }}</li>
             @endif
         </ul>
