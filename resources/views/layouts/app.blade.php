@@ -52,6 +52,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            background-color: #e8f0fe !important;
         }
 
         .btn-menubar {
