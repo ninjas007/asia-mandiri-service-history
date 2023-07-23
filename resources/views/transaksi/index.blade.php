@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('css')
+
+<link href="{{ asset('assets/select2.min.css') }}" rel="stylesheet" />
+
 <style>
 #tableTransaksi tr td {
     padding: 3px 2px;
@@ -118,5 +121,47 @@ ul.pagination li.disabled span.page-link {
 @endsection
 
 @section('js')
-    <script type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-select2').select2();
+
+            $('#filter-transaksi').click(function() {
+                let dateStart = $('#dateStart').val();
+                let dateEnd = $('#dateEnd').val();
+                let layanan = $('#layanan').val();
+                let client = $('#client').val();
+                let teknisi = $('#teknisi').val();
+                let status = $('#status').val();
+
+                url = `{{ url()->current() }}?filter=1`;
+
+                if (dateStart != '' && dateEnd != '') {
+                    url += `&date_start=${dateStart}&date_end=${dateEnd}`
+                }
+
+                if (layanan != '') {
+                    url += `&layanan=${layanan}`;
+                }
+
+                if (client != '') {
+                    url += `&client=${client}`;
+                }
+
+                if (teknisi != '') {
+                    url += `&teknisi=${teknisi}`;
+                }
+
+                if (status != '') {
+                    url += `&status=${status}`;
+                }
+                
+                window.location.href = url;
+            });
+
+            $('#filter-reset').click(function() {
+                window.location.href = `{{ url('') }}/transaksi`
+            });
+        });
+    </script>
 @endsection

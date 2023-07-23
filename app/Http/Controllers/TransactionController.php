@@ -5,21 +5,30 @@ namespace App\Http\Controllers;
 use App\Service;
 use App\Transaction;
 use App\TransactionDetail;
+use App\TransactionStatus;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $transaksi = Transaction::with(['service']);
+        $transaksi = Transaction::with(['service', 'histories']);
 
         // client
         if (auth()->user()->role_id == 2) {
             $transaksi->where('client_id', auth()->user()->id);
         } else if (auth()->user()->role_id == 1){
             $transaksi->where('karyawan_id', auth()->user()->id); // karyawan
+        }
+
+        if ($request->filter == 1) {
+            $filter = $this->filter($request, $transaksi);
+            $transaksi = $filter['query'];
+            $data['filter'] = $filter['filter'];
         }
         
         $transaksi = $transaksi
@@ -29,8 +38,58 @@ class TransactionController extends Controller
         
         $data['services'] = Service::all();
         $data['list_transaksi'] = $transaksi;
+        $data['list_client'] = User::where('role_id', 2)->get();
+        $data['list_teknisi'] = User::where('role_id', 1)->get();
+        $data['list_status'] = TransactionStatus::all();
 
         return view('transaksi.index', $data);
+    }
+
+    public function filter(Request $request, $query)
+    {
+        $layanan = $request->layanan;
+        $client = $request->client;
+        $teknisi = $request->teknisi;
+        $status = $request->status;
+
+        if ($request->date_start && $request->date_end) {
+            $date_start = Carbon::parse($request->date_start)->startOfDay()->format('Y-m-d H:i:s');
+            $date_end = Carbon::parse($request->date_end)->endOfDay()->format('Y-m-d H:i:s');
+
+            $query->where('created_at', '>=', $date_start)
+                ->where('created_at', '<=', $date_end);
+        }
+
+        if ($layanan) {
+            $query->where('jenis_service', $layanan);
+        }
+
+        if ($teknisi) {
+            $query->where('karyawan_id', $teknisi);
+        }
+
+        if ($client) {
+            $query->where('client_id', $client);
+        }
+
+        if ($status) {
+            $query->whereHas('histories', function ($query) use ($status) {
+                $query->from('transaction_histories')
+                        ->where('transaksi_status_id', '=', $status);
+            });
+        }
+
+        return [
+            'query' => $query,
+            'filter' => [
+                'date_start' => $request->date_start,
+                'date_end' => $request->date_end,
+                'layanan' => $layanan,
+                'client' => $client,
+                'teknisi' => $teknisi,
+                'status' => $status
+            ]
+        ];
     }
 
     public function show($id)
