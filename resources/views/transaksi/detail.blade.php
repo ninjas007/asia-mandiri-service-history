@@ -26,6 +26,7 @@
                             </div>
                         @endforeach
                     </div>
+                    {{-- cuman teknisi yang bisa add transaksi --}}
                     @if (auth()->user()->role_id == 1)
                         <div class="card-footer">
                             <div class="list-group list-group-light">
