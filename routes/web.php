@@ -33,8 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('transaksi')->group(function () {
         Route::get('/', 'TransactionController@index');
         Route::get('/{transaksi_id}', 'TransactionController@show');
+        Route::post('/update/{transaksi_id}', 'TransactionController@update');
         Route::post('/remove/{transaksi_id}', 'TransactionController@destroy');
-        Route::post('/save', 'TransactionController@save');
+        Route::post('/save', 'TransactionController@saveWithDetail');
     });
 
     Route::prefix('transaksi-detail')->group(function () {

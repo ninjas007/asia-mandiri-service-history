@@ -17,6 +17,7 @@ class CreateTransactionHistoriesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('transaksi_id');
             $table->integer('transaksi_status_id');
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

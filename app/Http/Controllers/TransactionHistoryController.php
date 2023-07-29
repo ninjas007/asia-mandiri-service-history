@@ -9,14 +9,18 @@ class TransactionHistoryController extends Controller
 {
     /**
      * @property Illuminate\Http\Request $request
-     * @property App\Transaksi $transksi
+     * @property int $transksi_id
      * @property int $status_id
      */
-    public function save($transaksi, $status_id = 1)
+    public function save($transaksi_id, $status_id = 1, $is_update = false)
     {
         $transaksi_history = new TransactionHistory;
         $transaksi_history->transaksi_status_id = $status_id;
-        $transaksi_history->transaksi_id = $transaksi->id;
+        $transaksi_history->transaksi_id = $transaksi_id;
+
+        if ($is_update) {
+            $transaksi_history->updated_by = auth()->user()->id;
+        }
 
         $transaksi_history->save();
     }

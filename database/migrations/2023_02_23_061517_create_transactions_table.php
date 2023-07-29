@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('judul')->nullable(); // penamaan transaksi;
             $table->integer('karyawan_id'); // relasi ke user role 1
             $table->integer('client_id'); // relasi ke table client detail
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

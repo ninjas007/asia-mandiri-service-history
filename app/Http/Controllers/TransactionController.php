@@ -103,7 +103,33 @@ class TransactionController extends Controller
         return view('transaksi.detail', $data);
     }
 
-    public function save(Request $request)
+    public function update(Request $request, $transaksi_id)
+    {
+        $transaksi = Transaction::findOrFail($transaksi_id);
+
+        try {
+            DB::beginTransaction();
+
+            $transaksi->judul = $request->judul;
+            $transaksi->updated_by = auth()->user()->id;
+            $transaksi->updated_at = now();
+            $transaksi->save();
+
+            app(TransactionHistoryController::class)->save($transaksi->id, $request->status, true);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            
+            if (config('app.debug')) dd($th);
+    
+            return redirect()->back()->with('error', 'Terdapat kesalahan, Gagal mengubah transaksi');
+        }
+
+        return redirect('transaksi/'.$transaksi_id)->with('success', 'Berhasil mengubah transaksi');
+    }
+
+    public function saveWithDetail(Request $request)
     {
         $transaksi_id = $request->transaksi_id ?? null;
 
@@ -146,7 +172,7 @@ class TransactionController extends Controller
 
             // save transaksi history
             // save transaksi status 1
-            app(TransactionHistoryController::class)->save($transaksi, 1);
+            app(TransactionHistoryController::class)->save($transaksi->id, 1);
 
             // hapus data di transaction images jika sudah save
             app(TransactionImagesController::class)->destroy($request->uniq_string);
